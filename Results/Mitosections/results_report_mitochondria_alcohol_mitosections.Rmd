@@ -1,6 +1,6 @@
 ---
 title: "Analysis Mitochondria distribution along sections through neuronal soma"
-author: "Dr. Jana Dahlmanns 2"
+author: "Dr. Jana Dahlmanns"
 date: "`r Sys.Date()`"
 output: 
   word_document:
