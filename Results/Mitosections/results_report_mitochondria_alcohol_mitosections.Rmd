@@ -301,16 +301,18 @@ descriptive_statistics <- results_sect %>% group_by(section, condition) %>% summ
 
 selected_section <- 1
 stats_data <- results_sect %>% filter(section == selected_section) %>% mutate(condition = factor(condition))
+stats_data$condition <- relevel(stats_data$condition, ref = included_conditions[3]) ############################ input here: which condition is the reference condition
+
 res_aov <- aov(section_mean ~ condition, data = stats_data)
 summary(res_aov)
-stats_data$condition <- relevel(stats_data$condition, ref = included_conditions[3]) ############################ input here: which condition is the reference condition
 post_test <- glht(res_aov, linfct = mcp(condition = "Dunnett"))
-summary(post_test)
+stats_sum <- tidy(summary(post_test))
+
 
 # plot
-results_sect %>% group_by(condition, section) %>% mutate(int_section_mean = mean(section_mean), int_section_sd = sd(section_mean)) %>%  ggplot(aes(x = section, y = int_section_mean, color = condition)) + geom_pointrange(aes(ymin=int_section_mean-int_section_sd, ymax=int_section_mean+int_section_sd), position = position_dodge(width = 0.1)) + theme_classic(base_size = 20) + scale_colour_colorblind() + labs(x = "distance from nucleus", y = "mitochondria fluorescence") + theme(legend.position = c(0.22, 0.15), legend.direction = "vertical") 
+results_sect %>% group_by(condition, section) %>% mutate(int_section_mean = mean(section_mean), int_section_sd = sd(section_mean)) %>%  ggplot(aes(x = section, y = int_section_mean, color = condition)) + geom_pointrange(aes(ymin=int_section_mean-int_section_sd, ymax=int_section_mean+int_section_sd), position = position_dodge(width = 0.75)) + theme_classic(base_size = 20) + scale_colour_colorblind() + labs(x = "distance from nucleus", y = "mitochondria fluorescence") + theme(legend.position = c(0.22, 0.15), legend.direction = "vertical") 
 
-rm(list=setdiff(ls(), c("data", "condition_lookup", "which_image", "sample_sizes", "results", "results_wrap", "results_fit", "descriptive_statistics")))
+#rm(list=setdiff(ls(), c("data", "condition_lookup", "included_conditions", which_image", "sample_sizes", "results", "results_wrap", "results_fit", "descriptive_statistics")))
 ```
 
 ```{r show_descriptive_statistics, echo = F, message = F, warning = F}
