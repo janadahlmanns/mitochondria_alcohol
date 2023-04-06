@@ -26,6 +26,8 @@ library(ggthemes)
 library(broom)
 library(collections)
 library(cowplot)
+library(pander)
+library(multcomp)
 ```
 
 ```{r pull_results, include=F}
@@ -43,6 +45,8 @@ rm(list=setdiff(ls(), c("data", "condition_lookup")))
 ```
 
 ## Introduction
+
+@cangkramaProtumorigenicMDia2MIRO1Axis2022
 
 We analyzed the distribution of mitochondria in the soma of neurons. We used dissociated neuronal cultures that were treated under different conditions prior to fixation, staining and imaging ([staining protocol](../../Methods/mitostaining.xlsx)).
 
@@ -68,6 +72,8 @@ sapply(seq_along(plotlist), function(x){
               ytop = 0, ybottom = 1, interpolate = FALSE)
 })
 par(mfrow=c(1,1), mar=c(0, 0, 0, 0), pty = "m")
+
+rm(list=setdiff(ls(), c("data", "condition_lookup")))
 ```
 
 
@@ -91,6 +97,8 @@ sapply(seq_along(plotlist), function(x){
   rasterImage(plotlist[[x]], xleft = 0, xright = 1,
               ytop = 0, ybottom = 1, interpolate = FALSE)
 })
+
+rm(list=setdiff(ls(), c("data", "condition_lookup", "which_image")))
 ```
 
 
@@ -100,7 +108,8 @@ sapply(seq_along(plotlist), function(x){
 The number of analyzed images is currently `r nrow(condition_lookup)` and is divided into different experimental conditions as follows:
 ```{r sample_size, echo = F}
 sample_sizes <- condition_lookup %>% group_by(condition)  %>% summarize(n = n())
-knitr::kable(sample_sizes)
+#knitr::kable(sample_sizes)
+pander(sample_sizes)
 ```
 
 ## Analysis steps
@@ -126,6 +135,8 @@ for (r in 1:length(data)) {
   data[[r]][["sections"]][["s2"]] <- line2 %>% mutate(mito_values_norm = (mito_section_values-normvalue_min) / (normvalue_max - normvalue_min))
   data[[r]][["sections"]][["s3"]] <- line3 %>% mutate(mito_values_norm = (mito_section_values-normvalue_min) / (normvalue_max - normvalue_min))
 }
+
+rm(list=setdiff(ls(), c("data", "condition_lookup", "which_image", "sample_sizes")))
 ```
 
 ```{r prepare_results, echo = F}
@@ -172,7 +183,7 @@ colnames(results) <- c("recording", "condition", "line", "distance_norm", "inten
 
 results <-  results %>% add_count(condition)
 
-rm(list=setdiff(ls(), c("data", "condition_lookup", "results", "sample_sizes")))
+rm(list=setdiff(ls(), c("data", "condition_lookup", "which_image", "sample_sizes", "results")))
 ```
 
 For comparability with the previous study, I plotted here the results, using the first (maximum length) somatic profile only. 
@@ -248,7 +259,7 @@ rmse_a2_a14 <-  sqrt(mean((data_a2 - data_a14)^2))
 
 fit_collection$as_list()
 
-
+rm(list=setdiff(ls(), c("data", "condition_lookup", "included_conditions", "which_image", "sample_sizes", "results", "results_wrap", "results_fit")))
 ```
 
 ```{r compare_poly_coeffs, echo = F, message = F, results='hide',fig.keep='all', fig.width= 10 , fig.height = 7, fig.cap="Normalized intensity profiles along sections through the soma with fitted curves"}
@@ -261,16 +272,49 @@ p3 <- results_wrap %>% ggplot(aes(x = condition_wrap, y = poly3, color = conditi
 p4 <- results_wrap %>% ggplot(aes(x = condition_wrap, y = poly_int, color = condition_wrap)) + geom_boxplot() + geom_point() + theme_classic(base_size = 20) + scale_colour_colorblind() + coord_flip() + labs(x = "") + scale_colour_colorblind() + theme(legend.position = "none")
 
 plot_grid(p1, p2, p3, p4, labels = c("A", "B", "C", "D"))
-
+rm(list=setdiff(ls(), c("data", "condition_lookup", "included_conditions", "which_image", "sample_sizes", "results", "results_wrap", "results_fit")))
 ```
 
 ### Idea2: 
-Asses the distribution shape through correlation and the mitochondria density through t-test/anova of the local maxima or through residuals
+The original paper compared the different distributions by dividing them up into 10 sections (0-0.1 distance from the nucleus, 0.1-0.2, 0.2-0.3,...). Within each section, values are averaged and statistically compared through t-test or anova.
 
-```{r correlation_of_curves, echo = F, message = F, results='hide',fig.keep='all', fig.width= 10 , fig.height = 7, fig.cap="Correlation of the different curves"}
+```{r comparison_of_curve_sections, echo = F, message = F, warning = F, results='hide',fig.keep='all', fig.width= 10 , fig.height = 7, fig.cap="Correlation of the different curves"}
 
-results_line1 <- results %>% filter(line == "line1") %>% spread( key = condition, value = intensity_norm)
+# Define range of curve sections
+edges <- data.frame(start = seq(from = 0, to = 0.9, by = 0.1)) %>% mutate(end = start + 0.1)
+edges[7,1] <- 0.6
+# gather values within each curve section
+results_sect <- results_wrap %>% mutate(section = matrix(0, nrow(results_wrap), 1))
+for (s in 1:nrow(edges)) {
+  results_sect$section[results_sect$distance_norm >= edges[s,1] & results_sect$distance_norm < edges[s,2]] <- s
+}
+results_sect$section[results_sect$distance_norm == 0] <- 1
+results_sect$section[results_sect$distance_norm == 1] <- nrow(edges)
 
+results_sect$section <- factor(results_sect$section)
+results_sect <- results_sect %>% group_by(recording, section) %>% mutate(section_mean=mean(intensity_norm)) %>% ungroup() 
+# maybe exclude curves/sections with too little values?
+# statistical comparison within each section
+
+#descriptive stats
+descriptive_statistics <- results_sect %>% group_by(section, condition) %>% summarize(mean = mean(section_mean, na.rm = T), sd = sd(section_mean, na.rm = T))
+
+selected_section <- 1
+stats_data <- results_sect %>% filter(section == selected_section) %>% mutate(condition = factor(condition))
+res_aov <- aov(section_mean ~ condition, data = stats_data)
+summary(res_aov)
+stats_data$condition <- relevel(stats_data$condition, ref = included_conditions[3]) ############################ input here: which condition is the reference condition
+post_test <- glht(res_aov, linfct = mcp(condition = "Dunnett"))
+summary(post_test)
+
+# plot
+results_sect %>% group_by(condition, section) %>% mutate(int_section_mean = mean(section_mean), int_section_sd = sd(section_mean)) %>%  ggplot(aes(x = section, y = int_section_mean, color = condition)) + geom_pointrange(aes(ymin=int_section_mean-int_section_sd, ymax=int_section_mean+int_section_sd), position = position_dodge(width = 0.1)) + theme_classic(base_size = 20) + scale_colour_colorblind() + labs(x = "distance from nucleus", y = "mitochondria fluorescence") + theme(legend.position = c(0.22, 0.15), legend.direction = "vertical") 
+
+rm(list=setdiff(ls(), c("data", "condition_lookup", "which_image", "sample_sizes", "results", "results_wrap", "results_fit", "descriptive_statistics")))
+```
+
+```{r show_descriptive_statistics, echo = F, message = F, warning = F}
+pander(descriptive_statistics)
 ```
 
 
