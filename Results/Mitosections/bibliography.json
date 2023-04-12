@@ -1,3 +1,1634 @@
 [
-  {"id":"cangkramaProtumorigenicMDia2MIRO1Axis2022","abstract":"Cancer-associated fibroblasts (CAF) are key regulators of tumorigenesis. Further insights into the tumor-promoting mechanisms of action of CAFs could help improve cancer diagnosis and treatment. Here we show that the formin mDia2 regulates the positioning and function of mitochondria in dermal fibroblasts, thereby promoting a protumorigenic CAF phenotype. Mechanistically, mDia2 stabilized the mitochondrial trafficking protein MIRO1. Loss of mDia2 or MIRO1 in fibroblasts or CAFs reduced the presence of mitochondria and ATP levels near the plasma membrane and at CAF-tumor cell contact sites, caused metabolic alterations characteristic of mitochondrial dysfunction, and suppressed the secretion of protumorigenic proteins. In mouse models of squamous carcinogenesis, genetic or pharmacologic inhibition of mDia2, MIRO1, or their common upstream regulator activin A inhibited tumor formation. Consistently, co-upregulation of mDia2 and MIRO1 in the stroma of various human cancers negatively correlated with survival. This work unveils a key role of mitochondria in the protumorigenic CAF phenotype and identifies an activin A-mDia2-MIRO1 signaling axis in CAFs with diagnostic and therapeutic potential.\nSIGNIFICANCE: Inhibition of mDia2/MIRO1-mediated mitochondrial positioning in CAFs induces mitochondrial dysfunction and suppresses tumor growth, revealing a promising therapeutic strategy to target tumor-stroma cross-talk.","author":[{"family":"Cangkrama","given":"Michael"},{"family":"Liu","given":"Huan"},{"family":"Whipman","given":"James"},{"family":"Zubair","given":"Maria"},{"family":"Matsushita","given":"Mai"},{"family":"Di Filippo","given":"Michela"},{"family":"Kopf","given":"Manfred"},{"family":"Innocenti","given":"Metello"},{"family":"Werner","given":"Sabine"}],"citation-key":"cangkramaProtumorigenicMDia2MIRO1Axis2022","container-title":"Cancer Research","container-title-short":"Cancer Res","DOI":"10.1158/0008-5472.CAN-22-0162","ISSN":"1538-7445","issue":"20","issued":{"date-parts":[[2022,10,17]]},"language":"eng","page":"3701-3717","PMCID":"PMC9574377","PMID":"35997559","source":"PubMed","title":"A Protumorigenic mDia2-MIRO1 Axis Controls Mitochondrial Positioning and Function in Cancer-Associated Fibroblasts","type":"article-journal","volume":"82"}
+	{
+		"id": "knabbeSingledoseEthanolIntoxication2020",
+		"type": "article-journal",
+		"abstract": "Alcohol intoxication at early ages is a risk factor for development of addictive behavior. To uncover neuronal molecular correlates of acute ethanol intoxication, we used stable-isotope labeled mice combined with quantitative mass spectrometry to screen over 2000 hippocampal proteins of which 72 changed synaptic abundance up to two-fold after ethanol exposure. Among those were mitochondrial proteins and proteins important for neuronal morphology, including MAP6 and Ankyrin-G. Based on these candidate proteins, we found acute and lasting molecular, cellular, and behavioral changes following a single intoxication in alcohol-naive mice. Immunofluorescence analysis revealed a shortening of axon initial segments. Longitudinal two-photon in vivo imaging showed increased synaptic dynamics and mitochondrial trafficking in axons. Knockdown of mitochondrial trafficking in dopaminergic neurons abolished conditioned alcohol preference in Drosophila. This introduces mitochondrial trafficking as a process implicated in reward learning, and highlights the potential of high-resolution proteomics to identify cellular mechanisms relevant for addictive behavior.",
+		"container-title": "bioRxiv",
+		"DOI": "10.1101/2020.09.09.289256",
+		"note": "DOI: 10.1101/2020.09.09.289256\nMAG ID: 3084211370\nPMCID: 9231489\nPMID: 35700362\nS2ID: ab50d71692940c12548762ba1572cb56d482020d",
+		"title": "Single-dose ethanol intoxication causes acute and lasting neuronal changes in the brain",
+		"author": [
+			{
+				"family": "Knabbe",
+				"given": "Johannes"
+			},
+			{
+				"family": "Protzmann",
+				"given": "Jil"
+			},
+			{
+				"family": "Protzmann",
+				"given": "Jil"
+			},
+			{
+				"family": "Schneider",
+				"given": "Niklas"
+			},
+			{
+				"family": "Dannehl",
+				"given": "Dominik"
+			},
+			{
+				"family": "Berger",
+				"given": "Michael F."
+			},
+			{
+				"family": "Wei",
+				"given": "Shoupeng"
+			},
+			{
+				"family": "Strahle",
+				"given": "Christopher"
+			},
+			{
+				"family": "Jaiswal",
+				"given": "Asta"
+			},
+			{
+				"family": "Lugani",
+				"given": "Sophie"
+			},
+			{
+				"family": "Zheng",
+				"given": "Hongwei"
+			},
+			{
+				"family": "Krüger",
+				"given": "Marcus"
+			},
+			{
+				"literal": "Marcus Krueger"
+			},
+			{
+				"family": "Krueger",
+				"given": "Marcus"
+			},
+			{
+				"family": "Rohr",
+				"given": "Karl"
+			},
+			{
+				"family": "Spanagel",
+				"given": "Rainer"
+			},
+			{
+				"family": "Scholz",
+				"given": "Henrike"
+			},
+			{
+				"family": "Bilbao",
+				"given": "Ainhoa"
+			},
+			{
+				"family": "Engelhardt",
+				"given": "Maren"
+			},
+			{
+				"family": "Cambridge",
+				"given": "Sidney"
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"2020"
+				]
+			]
+		}
+	},
+	{
+		"id": "cangkramaProtumorigenicMDia2MIRO1Axis2022",
+		"type": "article-journal",
+		"abstract": "Cancer-associated fibroblasts (CAF) are key regulators of tumorigenesis. Further insights into the tumor-promoting mechanisms of action of CAFs could help improve cancer diagnosis and treatment. Here we show that the formin mDia2 regulates the positioning and function of mitochondria in dermal fibroblasts, thereby promoting a protumorigenic CAF phenotype. Mechanistically, mDia2 stabilized the mitochondrial trafficking protein MIRO1. Loss of mDia2 or MIRO1 in fibroblasts or CAFs reduced the presence of mitochondria and ATP levels near the plasma membrane and at CAF-tumor cell contact sites, caused metabolic alterations characteristic of mitochondrial dysfunction, and suppressed the secretion of protumorigenic proteins. In mouse models of squamous carcinogenesis, genetic or pharmacologic inhibition of mDia2, MIRO1, or their common upstream regulator activin A inhibited tumor formation. Consistently, co-upregulation of mDia2 and MIRO1 in the stroma of various human cancers negatively correlated with survival. This work unveils a key role of mitochondria in the protumorigenic CAF phenotype and identifies an activin A-mDia2-MIRO1 signaling axis in CAFs with diagnostic and therapeutic potential.\nSIGNIFICANCE: Inhibition of mDia2/MIRO1-mediated mitochondrial positioning in CAFs induces mitochondrial dysfunction and suppresses tumor growth, revealing a promising therapeutic strategy to target tumor-stroma cross-talk.",
+		"container-title": "Cancer Research",
+		"DOI": "10.1158/0008-5472.CAN-22-0162",
+		"ISSN": "1538-7445",
+		"issue": "20",
+		"journalAbbreviation": "Cancer Res",
+		"language": "eng",
+		"note": "PMID: 35997559\nPMCID: PMC9574377",
+		"page": "3701-3717",
+		"source": "PubMed",
+		"title": "A Protumorigenic mDia2-MIRO1 Axis Controls Mitochondrial Positioning and Function in Cancer-Associated Fibroblasts",
+		"volume": "82",
+		"author": [
+			{
+				"family": "Cangkrama",
+				"given": "Michael"
+			},
+			{
+				"family": "Liu",
+				"given": "Huan"
+			},
+			{
+				"family": "Whipman",
+				"given": "James"
+			},
+			{
+				"family": "Zubair",
+				"given": "Maria"
+			},
+			{
+				"family": "Matsushita",
+				"given": "Mai"
+			},
+			{
+				"family": "Di Filippo",
+				"given": "Michela"
+			},
+			{
+				"family": "Kopf",
+				"given": "Manfred"
+			},
+			{
+				"family": "Innocenti",
+				"given": "Metello"
+			},
+			{
+				"family": "Werner",
+				"given": "Sabine"
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"2022",
+					10,
+					17
+				]
+			]
+		}
+	},
+	{
+		"id": "manzo-avalosCellularMitochondrialEffects2010",
+		"type": "article-journal",
+		"abstract": "Alcohol dependence is correlated with a wide spectrum of medical, psychological, behavioral, and social problems. Acute alcohol abuse causes damage to and functional impairment of several organs affecting protein, carbohydrate, and fat metabolism. Mitochondria participate with the conversion of acetaldehyde into acetate and the generation of increased amounts of NADH. Prenatal exposure to ethanol during fetal development induces a wide spectrum of adverse effects in offspring, such as neurologic abnormalities and pre- and post-natal growth retardation. Antioxidant effects have been described due to that alcoholic beverages contain different compounds, such as polyphenols as well as resveratrol. This review analyzes diverse topics on the alcohol consumption effects in several human organs and demonstrates the direct participation of mitochondria as potential target of compounds that can be used to prevent therapies for alcohol abusers.",
+		"container-title": "International Journal of Environmental Research and Public Health",
+		"DOI": "10.3390/ijerph7124281",
+		"issue": "12",
+		"note": "DOI: 10.3390/ijerph7124281\nMAG ID: 2006179560\nPMCID: 3037055\nPMID: 21318009",
+		"page": "4281-4304",
+		"title": "Cellular and Mitochondrial Effects of Alcohol Consumption",
+		"volume": "7",
+		"author": [
+			{
+				"family": "Manzo-Avalos",
+				"given": "Salvador"
+			},
+			{
+				"family": "Saavedra-Molina",
+				"given": "Alfredo"
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"2010",
+					12,
+					21
+				]
+			]
+		}
+	},
+	{
+		"id": "kamalAlcoholUseDisorder2020",
+		"type": "article-journal",
+		"abstract": "Alcohol Use Disorder (AUD) has been associated with neurodegenerative diseases such as Alzheimer’s and Parkinson’s disease. Prolonged excessive alcohol intake contributes to increased production of reactive oxygen species that trigger neuroimmune response and cellular apoptosis and necrosis via lipid peroxidation, mitochondrial, protein, or DNA damage. Long term binge alcohol consumption also upregulates glutamate receptors, glucocorticoids and reduces the reuptake of glutamate in the central nervous system, resulting in glutamate excitotoxicity, and eventually mitochondrial injury and cell death. In this review, we delineate the following principles in alcohol-induced neurodegeneration: 1) alcohol-induced oxidative stress, 2) neuroimmune response towards increased oxidants and lipopolysaccharide, 3) glutamate excitotoxicity and cell injury, and 4) interplay between oxidative stress, neuroimmune response, and excitotoxicity leading to neurodegeneration and 5) potential chronic alcohol intake-induced development of neurodegenerative diseases, including Alzheimer’s and Parkinson’s disease.",
+		"container-title": "Frontiers in Cellular Neuroscience",
+		"DOI": "10.3389/fncel.2020.00282",
+		"note": "DOI: 10.3389/fncel.2020.00282\nMAG ID: 3081863423",
+		"page": "282",
+		"title": "Alcohol Use Disorder, Neurodegeneration, Alzheimer's and Parkinson's Disease: Interplay Between Oxidative Stress, Neuroimmune Response and Excitotoxicity.",
+		"volume": "14",
+		"author": [
+			{
+				"family": "Kamal",
+				"given": "Haziq"
+			},
+			{
+				"family": "Tan",
+				"given": "Geok Chin"
+			},
+			{
+				"family": "Ibrahim",
+				"given": "Siti Fatimah"
+			},
+			{
+				"family": "Shaikh",
+				"given": "Mohd Farooq"
+			},
+			{
+				"family": "Mohamed",
+				"given": "Isa Naina"
+			},
+			{
+				"family": "Mohamed",
+				"given": "Rashidi Mohamed Pakri"
+			},
+			{
+				"family": "Hamid",
+				"given": "Adila A"
+			},
+			{
+				"family": "Ugusman",
+				"given": "Azizah"
+			},
+			{
+				"family": "Kumar",
+				"given": "Jaya"
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"2020"
+				]
+			]
+		}
+	},
+	{
+		"id": "angiek.torresStimulationMelanocortinReceptor42020",
+		"type": "article-journal",
+		"abstract": "Abstract   Binge drinking is a common pattern of adolescent alcohol consumption characterized by a high alcohol intake within a short period of time; which may seriously affect brain function, triggering in some cases an addictive behavior. Current evidence indicates that alcohol addictive conduct is related to the impairment of the Melanocortin System (MCS). This system participates in the regulation of food intake and promotes anti-inflammatory response in the brain. However, the cellular mechanisms involved in the protective effects induced by MCS against binge-alcohol intoxication are still unknown. Here, we studied the effects of MCS activation on mitochondrial and oxidative damage induced by a binge-like protocol in the hippocampus of adolescent rats. We used a pharmacological activator of melanocortin receptor-4 (MC4R) (RO27-3225) and evaluated its effects against oxidative injury, mitochondrial failure, and bioenergetics impairment induced by binge ethanol protocol in the hippocampus of adolescent’s rats. Our results indicate that MC4R agonist reduces hippocampal oxidative damage promoting antioxidant (Nrf-2) and mitochondrial biogenesis (PGC1-alpha) pathways in animals subjected to the binge-like protocol. Additionally, MC4R activation prevented mitochondrial potential loss and increased mitochondrial mass that were significantly reduced by binge ethanol protocol. Finally, RO27-3225 treatment increased ATP production and mitochondrial respiratory complex expression in adolescent rats exposed to ethanol. Altogether, these findings show that activation of the MCS pathway through MC4R prevents these negative effects of binge ethanol protocol, suggesting a possible role of the MCS in the reduction of the neurotoxic effects induced by alcohol intoxication in adolescents.",
+		"container-title": "Neuroscience",
+		"DOI": "10.1016/j.neuroscience.2020.05.005",
+		"note": "DOI: 10.1016/j.neuroscience.2020.05.005\nMAG ID: 3024768985\nPMID: 32416118",
+		"page": "70-85",
+		"title": "Stimulation of Melanocortin Receptor-4 (MC4R) Prevents Mitochondrial Damage Induced by Binge Ethanol Protocol in Adolescent Rat Hippocampus.",
+		"volume": "438",
+		"author": [
+			{
+				"literal": "Angie K. Torres"
+			},
+			{
+				"family": "Torres",
+				"given": "Angie K."
+			},
+			{
+				"family": "Inestrosa",
+				"given": "Nibaldo C."
+			},
+			{
+				"literal": "Cheril Tapia-Rojas"
+			},
+			{
+				"family": "Tapia-Rojas",
+				"given": "Cheril"
+			},
+			{
+				"family": "Cerpa",
+				"given": "Waldo"
+			},
+			{
+				"family": "Quintanilla",
+				"given": "Rodrigo A."
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"2020",
+					7,
+					1
+				]
+			]
+		}
+	},
+	{
+		"id": "inestrosaAdolescentBingeAlcohol2017",
+		"type": "article-journal",
+		"abstract": "In the young population, binge drinking is a pattern of problematic alcohol consumption, characterized by a short period of heavy drinking followed by abstinence which is frequently repeated over time. This drinking pattern is associated with mental problems, use of other drugs, and an increased risk of excessive alcohol intake during adulthood. However, little is known about the effects of binge drinking on brain function in adolescents and its neurobiological impact during the adulthood. In the present study, we evaluated the effects of alcohol on hippocampal memory, synaptic plasticity, and mitochondrial function in adolescent rats after a binge drinking episode in vivo. These effects were analyzed at 1, 3, or 7 weeks post alcohol exposure. Our results showed that binge-like ethanol pre-treated (BEP) rats exhibited early alterations in learning and memory tests accompanied by an impairment of synaptic plasticity that was total and partially compensated, respectively. These changes could be attributed to a rapid increase in oxidative damage and a late inflammatory response induced by post ethanol exposure. Additionally, BEP alters the regulation of mitochondrial dynamics and modifies the expression of mitochondrial permeability transition pore (mPTP) components, such as cyclophilin D (Cyp-D) and the voltage-dependent anion channel (VDAC). These mitochondrial structural changes result in the impairment of mitochondrial bioenergetics, decreasing ATP production progressively until adulthood. These results strongly suggest that teenage alcohol binge drinking impairs the function of the adult hippocampus including memory and synaptic plasticity as a consequence of the mitochondrial damage induced by alcohol and that the recovery of hippocampal function could implicate the activation of alternative pathways that fail to reestablish mitochondrial function.",
+		"container-title": "Molecular Neurobiology",
+		"DOI": "10.1007/s12035-017-0613-4",
+		"issue": "5",
+		"note": "DOI: 10.1007/s12035-017-0613-4\nMAG ID: 2621242862",
+		"page": "4473-4491",
+		"title": "Adolescent Binge Alcohol Exposure Affects the Brain Function Through Mitochondrial Impairment",
+		"volume": "55",
+		"author": [
+			{
+				"family": "Inestrosa",
+				"given": "Nibaldo C."
+			},
+			{
+				"family": "Tapia-Rojas",
+				"given": "Cheril"
+			},
+			{
+				"family": "Carvajal",
+				"given": "Francisco J."
+			},
+			{
+				"family": "Mira",
+				"given": "Rodrigo G."
+			},
+			{
+				"family": "Arce",
+				"given": "Camila"
+			},
+			{
+				"literal": "José Manuel Lerma-Cabrera"
+			},
+			{
+				"family": "Lerma-Cabrera",
+				"given": "Jose Manuel"
+			},
+			{
+				"family": "Orellana",
+				"given": "Juan A."
+			},
+			{
+				"family": "Cerpa",
+				"given": "Waldo"
+			},
+			{
+				"family": "Quintanilla",
+				"given": "Rodrigo A."
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"2017",
+					6,
+					1
+				]
+			]
+		}
+	},
+	{
+		"id": "zinkAssessmentEthanolInducedToxicity2020",
+		"type": "article-journal",
+		"abstract": "Excessive ethanol exposure can cause mitochondrial and cellular toxicity. In order to discover potential counteracting interventions, it is essential to develop assays capable of capturing the consequences of ethanol exposure in human neurons, and particularly dopaminergic neurons that are crucial for the development of alcohol use disorders (AUD). Here, we developed a novel high-throughput (HT) assay to quantify mitochondrial and neuronal toxicity in human dopaminergic neuron-containing cultures (DNs) from induced pluripotent stem cells (iPSCs). The assay, dubbed mitochondrial neuronal health (MNH) assay, combines live-cell measurement of mitochondrial membrane potential (MMP) with quantification of neuronal branching complexity post-fixation. Using the MNH assay, we demonstrated that chronic ethanol exposure in human iPSC-derived DNs decreases MMP and neuronal outgrowth in a dose-dependent manner. The toxic effect of ethanol on DNs was already detectable after 1 h of exposure, and occurred similarly in DNs derived from healthy individuals and from patients with AUD. We next used the MNH assay to carry out a proof-of-concept compound screening using FDA-approved drugs. We identified potential candidate compounds modulating acute ethanol toxicity in human DNs. We found that disulfiram and baclofen, which are used for AUD treatment, and lithium caused neurotoxicity also in the absence of ethanol, while the spasmolytic drug flavoxate positively influenced MNH. Altogether, we developed an HT assay to probe human MNH and used it to assess ethanol neurotoxicity and to identify modulating agents. The MNH assay represents an effective new tool for discovering modulators of MNH and toxicity in live human neurons.",
+		"container-title": "Frontiers in Cell and Developmental Biology",
+		"DOI": "10.3389/fcell.2020.590540",
+		"note": "DOI: 10.3389/fcell.2020.590540\nMAG ID: 3096124566",
+		"page": "590540",
+		"title": "Assessment of Ethanol-Induced Toxicity on iPSC-Derived Human Neurons Using a Novel High-Throughput Mitochondrial Neuronal Health (MNH) Assay.",
+		"volume": "8",
+		"author": [
+			{
+				"family": "Zink",
+				"given": "Annika"
+			},
+			{
+				"family": "Conrad",
+				"given": "Josefin"
+			},
+			{
+				"family": "Telugu",
+				"given": "Narasimha"
+			},
+			{
+				"literal": "Narasimha Swami Telugu"
+			},
+			{
+				"family": "Diecke",
+				"given": "Sebastian"
+			},
+			{
+				"family": "Heinz",
+				"given": "Andreas"
+			},
+			{
+				"family": "Wanker",
+				"given": "Erich E."
+			},
+			{
+				"literal": "Josef Priller"
+			},
+			{
+				"family": "Priller",
+				"given": "Josef"
+			},
+			{
+				"family": "Prigione",
+				"given": "Alessandro"
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"2020"
+				]
+			]
+		}
+	},
+	{
+		"id": "karadayianFreeRadicalProduction2017",
+		"type": "article-journal",
+		"abstract": "Abstract   Alcohol hangover (AH) is the pathophysiological state after a binge-like drinking. We have previously demonstrated that AH induced bioenergetics impairments in a total fresh mitochondrial fraction in brain cortex and cerebellum. The aim of this work was to determine free radical production and antioxidant systems in non-synaptic mitochondria and synaptosomes in control and hangover animals. Superoxide production was not modified in non-synaptic mitochondria while a 17.5% increase was observed in synaptosomes. A similar response was observed for cardiolipin content as no changes were evidenced in non-synaptic mitochondria while a 55% decrease in cardiolipin content was found in synaptosomes. Hydrogen peroxide production was 3-fold increased in non-synaptic mitochondria and 4-fold increased in synaptosomes. In the presence of deprenyl, synaptosomal H2O2 production was 67% decreased in the AH condition. Hydrogen peroxide generation was not affected by deprenyl addition in non-synaptic mitochondria from AH mice. MAO activity was 57% increased in non-synaptic mitochondria and 3-fold increased in synaptosomes. Catalase activity was 40% and 50% decreased in non-synaptic mitochondria and synaptosomes, respectively. Superoxide dismutase was 60% decreased in non-synaptic mitochondria and 80% increased in synaptosomal fractions. On the other hand, GSH (glutathione) content was 43% and 17% decreased in synaptosomes and cytosol. GSH-related enzymes were mostly affected in synaptosomes fractions by AH condition. Acetylcholinesterase activity in synaptosomes was 11% increased due to AH. The present work reveals that AH provokes an imbalance in the cellular redox homeostasis mainly affecting mitochondria present in synaptic terminals.",
+		"container-title": "Free Radical Biology and Medicine",
+		"DOI": "10.1016/j.freeradbiomed.2017.04.344",
+		"note": "DOI: 10.1016/j.freeradbiomed.2017.04.344\nMAG ID: 2607677753\nPMID: 28450149",
+		"page": "692-703",
+		"title": "Free radical production and antioxidant status in brain cortex non-synaptic mitochondria and synaptosomes at alcohol hangover onset.",
+		"volume": "108",
+		"author": [
+			{
+				"family": "Karadayian",
+				"given": "Analía G."
+			},
+			{
+				"family": "Malanga",
+				"given": "Gabriela Fabiana"
+			},
+			{
+				"family": "Czerniczyniec",
+				"given": "Analía"
+			},
+			{
+				"family": "Lombardi",
+				"given": "Paulina"
+			},
+			{
+				"family": "Bustamante",
+				"given": "Juanita"
+			},
+			{
+				"family": "Lores-Arnaiz",
+				"given": "Silvia"
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"2017",
+					7,
+					1
+				]
+			]
+		}
+	},
+	{
+		"id": "miraAlcoholImpairsHippocampal2019",
+		"type": "article-journal",
+		"abstract": "Abstract   Many studies have reported that alcohol produces harmful effects on several brain structures, including the hippocampus, in both rodents and humans. The hippocampus is one of the most studied areas of the brain due to its function in learning and memory, and a lot of evidence suggests that hippocampal failure is responsible for the cognitive loss present in individuals with recurrent alcohol consumption. Mitochondria are organelles that generate the energy needed for the brain to maintain neuronal communication, and their functional failure is considered a mediator of the synaptic dysfunction induced by alcohol. In this review, we discuss the mechanisms of how alcohol exposure affects neuronal communication through the impairment of glutamate receptor (NMDAR) activity, neuroinflammatory events and oxidative damage observed after alcohol exposure, all processes under the umbrella of mitochondrial function. Finally, we discuss the direct role of mitochondrial dysfunction mediating cognitive and memory decline produced by alcohol exposure and their consequences associated with neurodegeneration.",
+		"container-title": "Drug and Alcohol Dependence",
+		"DOI": "10.1016/j.drugalcdep.2019.107628",
+		"note": "DOI: 10.1016/j.drugalcdep.2019.107628\nMAG ID: 2981003714\nPMID: 31683244",
+		"page": "107628-107628",
+		"title": "Alcohol impairs hippocampal function: From NMDA receptor synaptic transmission to mitochondrial function.",
+		"volume": "205",
+		"author": [
+			{
+				"family": "Mira",
+				"given": "Rodrigo G."
+			},
+			{
+				"family": "Inestrosa",
+				"given": "Nibaldo C."
+			},
+			{
+				"family": "Tapia-Rojas",
+				"given": "Cheril"
+			},
+			{
+				"literal": "Cheril Tapia-Rojas"
+			},
+			{
+				"literal": "Cheril Tapia-Rojas"
+			},
+			{
+				"family": "Pérez",
+				"given": "María José"
+			},
+			{
+				"family": "Jara",
+				"given": "Claudia"
+			},
+			{
+				"family": "Vergara",
+				"given": "Erick H."
+			},
+			{
+				"family": "Quintanilla",
+				"given": "Rodrigo A."
+			},
+			{
+				"family": "Cerpa",
+				"given": "Waldo"
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"2019",
+					12,
+					1
+				]
+			]
+		}
+	},
+	{
+		"id": "inestrosaEthanolConsumptionAffects2017",
+		"type": "article-journal",
+		"DOI": "10.5772/intechopen.71611",
+		"note": "DOI: 10.5772/intechopen.71611\nMAG ID: 2888812937",
+		"title": "Ethanol Consumption Affects Neuronal Function: Role of the Mitochondria",
+		"author": [
+			{
+				"family": "Inestrosa",
+				"given": "Nibaldo C."
+			},
+			{
+				"family": "Tapia-Rojas",
+				"given": "Cheril"
+			},
+			{
+				"family": "Pérez",
+				"given": "María José"
+			},
+			{
+				"family": "Jara",
+				"given": "Claudia"
+			},
+			{
+				"family": "Vergara",
+				"given": "Erick H."
+			},
+			{
+				"family": "Quintanilla",
+				"given": "Rodrigo A."
+			},
+			{
+				"family": "Quintanilla",
+				"given": "Rodrigo A."
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"2017",
+					12,
+					20
+				]
+			]
+		}
+	},
+	{
+		"id": "inestrosaAlcoholConsumptionAdolescence2017",
+		"type": "article-journal",
+		"abstract": "Adolescence is a period of multiple changes where social behaviors influence interpersonal-relations. Adolescents live new experiences, including alcohol consumption which has become an increasing health problem. The age of onset for consumption has declined in the last decades, and additionally, the adolescents now uptake greater amounts of alcohol per occasion. Alcohol consumption is a risk factor for accidents, mental illnesses or other pathologies, as well as for the appearance of addictions, including alcoholism. An interesting topic to study is the damage that alcohol induces on the central nervous system (CNS) in the young population. The brain undergoes substantial modifications during adolescence, making brain cells more vulnerable to the ethanol toxicity. Over the last years, the brain mitochondria have emerged as a cell organelle which is particularly susceptible to alcohol. Mitochondria suffer severe alterations which can be exacerbated if the amount of alcohol or the exposure time is increased. In this review, we focus on the changes that the adolescent brain undergoes after drinking, placing particular emphasis on mitochondrial damage and their consequences against brain function. Finally, we propose the mitochondria as an important mediator in alcohol toxicity and a potential therapeutic target to reduce or treat brain conditions associated with excessive alcohol consumption.",
+		"container-title": "Birth defects research",
+		"DOI": "10.1002/bdr2.1172",
+		"issue": "20",
+		"note": "DOI: 10.1002/bdr2.1172\nMAG ID: 2780288108",
+		"page": "1623-1639",
+		"title": "Alcohol consumption during adolescence: A link between mitochondrial damage and ethanol brain intoxication.",
+		"volume": "109",
+		"author": [
+			{
+				"family": "Inestrosa",
+				"given": "Nibaldo C."
+			},
+			{
+				"family": "Tapia-Rojas",
+				"given": "Cheril"
+			},
+			{
+				"literal": "Cheril Tapia-Rojas"
+			},
+			{
+				"literal": "Cheril Tapia-Rojas"
+			},
+			{
+				"family": "Mira",
+				"given": "Rodrigo G."
+			},
+			{
+				"literal": "Angie K. Torres"
+			},
+			{
+				"family": "Torres",
+				"given": "Angie K."
+			},
+			{
+				"family": "Jara",
+				"given": "Claudia"
+			},
+			{
+				"family": "Pérez",
+				"given": "María José"
+			},
+			{
+				"family": "Vergara",
+				"given": "Erick H."
+			},
+			{
+				"family": "Cerpa",
+				"given": "Waldo"
+			},
+			{
+				"family": "Quintanilla",
+				"given": "Rodrigo A."
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"2017",
+					12,
+					1
+				]
+			]
+		}
+	},
+	{
+		"id": "karadayianAlcoholHangoverInduces2015",
+		"type": "article-journal",
+		"abstract": "Abstract   Alcohol hangover (AH) is defined as the temporary state after alcohol binge-like drinking, starting when ethanol (EtOH) is absent in plasma. Previous data indicate that AH induces mitochondrial dysfunction and free radical production in mouse brain cortex. The aim of this work was to study mitochondrial function and reactive oxygen species production in mouse cerebellum at the onset of AH. Male mice received a single i.p. injection of EtOH (3.8g/kg BW) or saline solution. Mitochondrial function was evaluated 6h after injection (AH onset). At the onset of AH, malate-glutamate and succinate-supported state 4 oxygen uptake was 2.3 and 1.9-fold increased leading to a reduction in respiratory control of 55% and 48% respectively, as compared with controls. Decreases of 38% and 16% were found in Complex I–III and IV activities. Complex II–III activity was not affected by AH. Mitochondrial membrane potential and mitochondrial permeability changes were evaluated by flow cytometry. Mitochondrial membrane potential and permeability were decreased by AH in cerebellum mitochondria. Together with this, AH induced a 25% increase in superoxide anion and a 92% increase in hydrogen peroxide production in cerebellum mitochondria. Related to nitric oxide (NO) metabolism, neuronal nitric oxide synthase (nNOS) protein expression was 52% decreased by the hangover condition compared with control group. No differences were found in cerebellum NO production between control and treated mice. The present work demonstrates that the physiopathological state of AH involves mitochondrial dysfunction in mouse cerebellum showing the long-lasting effects of acute EtOH exposure in the central nervous system.",
+		"container-title": "Neuroscience",
+		"DOI": "10.1016/j.neuroscience.2015.07.012",
+		"note": "DOI: 10.1016/j.neuroscience.2015.07.012\nMAG ID: 873214643\nPMID: 26192095",
+		"page": "47-59",
+		"title": "Alcohol hangover induces mitochondrial dysfunction and free radical production in mouse cerebellum",
+		"volume": "304",
+		"author": [
+			{
+				"family": "Karadayian",
+				"given": "Analía G."
+			},
+			{
+				"family": "Bustamante",
+				"given": "Juanita"
+			},
+			{
+				"family": "Czerniczyniec",
+				"given": "Analía"
+			},
+			{
+				"family": "Lombardi",
+				"given": "Paulina"
+			},
+			{
+				"family": "Cutrera",
+				"given": "Rodolfo A."
+			},
+			{
+				"family": "Lores-Arnaiz",
+				"given": "Silvia"
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"2015",
+					9,
+					24
+				]
+			]
+		}
+	},
+	{
+		"id": "bustamanteAlterationsMotorPerformance2012",
+		"type": "article-journal",
+		"abstract": "Abstract   Ethanol has been known to affect various behavioral parameters in experimental animals, even several hours after ethanol (EtOH) is absent from blood circulation, in the period known as hangover. The aim of this study was to assess the effects of acute ethanol hangover on motor performance in association with the brain cortex energetic metabolism. Evaluation of motor performance and brain cortex mitochondrial function during alcohol hangover was performed in mice 6hours after a high ethanol dose (hangover onset). Animals were injected i.p. either with saline (control group) or with ethanol (3.8g/kg BW) (hangover group). Ethanol hangover group showed a bad motor performance compared with control animals (p",
+		"container-title": "Alcohol",
+		"DOI": "10.1016/j.alcohol.2011.09.027",
+		"issue": "5",
+		"note": "DOI: 10.1016/j.alcohol.2011.09.027\nMAG ID: 2055099254\nPMID: 22608205",
+		"page": "473-479",
+		"title": "Alterations of motor performance and brain cortex mitochondrial function during ethanol hangover",
+		"volume": "46",
+		"author": [
+			{
+				"family": "Bustamante",
+				"given": "Juanita"
+			},
+			{
+				"family": "Karadayian",
+				"given": "Analía G."
+			},
+			{
+				"family": "Lores-Arnaiz",
+				"given": "Silvia"
+			},
+			{
+				"family": "Cutrera",
+				"given": "Rodolfo A."
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"2012",
+					8,
+					1
+				]
+			]
+		}
+	},
+	{
+		"id": "reddyAlcoholinducedOxidativeNitrosative2012",
+		"type": "article-journal",
+		"abstract": "Chronic alcohol consumption causes numerous biochemical and biophysical changes in the central nervous system, in which mitochondria is the primary organelle affected. In the present study, we hypothesized that alcohol alters the mitochondrial membrane properties and leads to mitochondrial dysfunction via mitochondrial reactive oxygen species (mROS) and reactive nitrogen species (RNS). Alcohol-induced hypoxia further enhances these effects. Administration of alcohol to rats significantly increased the mitochondrial lipid peroxidation and protein oxidation with decreased SOD2 mRNA and protein expression was decreased, while nitric oxide (NO) levels and expression of iNOS and nNOS in brain cortex were increased. In addition, alcohol augmented HIF-1α mRNA and protein expression in the brain cortex. Results from this study showed that alcohol administration to rats decreased mitochondrial complex I, III, IV activities, Na+/K+-ATPase activity and cardiolipin content with increased anisotropic value. Cardiolipin regulates numerous enzyme activities, especially those related to oxidative phosphorylation and coupled respiration. In the present study, decreased cardiolipin could be ascribed to ROS/RNS-induced damage. In conclusion, alcohol-induced ROS/RNS is responsible for the altered mitochondrial membrane properties, and alcohol-induced hypoxia further enhance these alterations, which ultimately leads to mitochondrial dysfunction.",
+		"container-title": "Molecular and Cellular Biochemistry",
+		"DOI": "10.1007/s11010-012-1526-1",
+		"issue": "1",
+		"note": "DOI: 10.1007/s11010-012-1526-1\nMAG ID: 2034159928\nPMID: 23212448",
+		"page": "39-47",
+		"title": "Alcohol-induced oxidative/nitrosative stress alters brain mitochondrial membrane properties.",
+		"volume": "375",
+		"author": [
+			{
+				"family": "Reddy",
+				"given": "Vaddi Damodara"
+			},
+			{
+				"family": "Padmavathi",
+				"given": "Pannuru"
+			},
+			{
+				"family": "Kavitha",
+				"given": "G."
+			},
+			{
+				"family": "Saradamma",
+				"given": "Bulle"
+			},
+			{
+				"family": "Varadacharyulu",
+				"given": "N.C."
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"2012",
+					12,
+					1
+				]
+			]
+		}
+	},
+	{
+		"id": "crewsMechanismsNeurodegenerationRegeneration2009",
+		"type": "article-journal",
+		"abstract": "Aims: This is a review of preclinical studies covering alcohol-induced brain neuronal death and loss of neurogenesis as well as abstinence-induced brain cell genesis, e.g. brain regeneration. Efforts are made to relate preclinical studies to human studies. Methods: The studies described are preclinical rat experiments using a 4-day binge ethanol treatment known to induce physical dependence to ethanol. Neurodegeneration and cognitive deficits following binge treatment mimic the mild degeneration and cognitive deficits found in humans. Various histological methods are used to follow brain regional degeneration and regeneration. Results: Alcohol-induced degeneration occurs due to neuronal death during alcohol intoxication. Neuronal death is related to increases in oxidative stress in brain that coincide with the induction of proinflammatory cytokines and oxidative enzymes that insult brain. Degeneration is associated with increased NF-κB proinflammatory transcription and decreased CREB transcription. Corticolimbic brain regions are most sensitive to binge-induced degeneration and induce relearning deficits. Drugs that block oxidative stress and NF-κB transcription or increase CREB transcription block binge-induced neurodegeneration, inhibition of neurogenesis and proinflammatory enzyme induction. Regeneration of brain occurs during abstinence following binge ethanol treatment. Bursts of proliferating cells occur across multiple brain regions, with many new microglia across brain after months of abstinence and many new neurons in neurogenic hippocampal dentate gyrus. Brain regeneration may be important to sustain abstinence in humans. Conclusions: Alcohol-induced neurodegeneration occurs primarily during intoxication and is related to increased oxidative stress and proinflammatory proteins that are neurotoxic. Abstinence after binge ethanol intoxication results in brain cell genesis that could contribute to the return of brain function and structure found in abstinent humans.",
+		"container-title": "Alcohol and Alcoholism",
+		"DOI": "10.1093/alcalc/agn079",
+		"issue": "2",
+		"note": "DOI: 10.1093/alcalc/agn079\nMAG ID: 2148274266\nPMID: 18940959",
+		"page": "115-127",
+		"title": "Mechanisms of Neurodegeneration and Regeneration in Alcoholism",
+		"volume": "44",
+		"author": [
+			{
+				"family": "Crews",
+				"given": "Fulton T."
+			},
+			{
+				"literal": "Kim Nixon"
+			},
+			{
+				"family": "Nixon",
+				"given": "Kim"
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"2009",
+					3,
+					1
+				]
+			]
+		}
+	},
+	{
+		"id": "prendergastHippocampalCA1Region2004",
+		"type": "article-journal",
+		"abstract": "Abstract   Long-term intake of ethanol produces adaptive alterations in multiple transmitter systems in the hippocampal formation that likely contribute to ethanol withdrawal-induced seizure and excitotoxicity. The present studies were designed to examine the role of  N -methyl- d -aspartate receptor activation and cytosolic Ca 2+  accumulation in the neurotoxic effects of ethanol withdrawal. Further, these studies investigated the role of hippocampal network excitation in promoting both Ca 2+  accumulation and neurotoxicity during ethanol withdrawal. Chronic, continuous (11 day) exposure to ethanol (91mM starting concentration) did not produce neurotoxicity in any region of organotypic hippocampal explants, as measured by uptake of the non-vital fluorescent marker propidium iodide. Withdrawal from chronic (10 day) ethanol exposure was associated with rapid (30 min) and significant increases in intracellular Ca 2+ , assessed by visualization of Calcium-Orange fluorescence, in each region of hippocampal explants. However, neurotoxicity was observed 24 h after initiation of withdrawal and was only seen in the cornu ammonis 1 (CA1) region. Exposure to MK-801 (20 μM) at the start of ethanol withdrawal markedly attenuated Ca 2+  entry in all regions, as well as, CA1 region neurodegeneration. Further, treatment of explants with tetrodotoxin (500nM) as well as surgical transection of mossy fiber or Schaffer collateral projections immediately prior to ethanol withdrawal blocked both regional increases in Ca 2+  accumulation and CA1 neurotoxicity. These data suggest that neurodegeneration observed during ethanol withdrawal is dependent upon polysynaptic propagation of action potentials (“network excitation”) and whole-hippocampal excitation of glutamatergic systems.",
+		"container-title": "Neuroscience",
+		"DOI": "10.1016/j.neuroscience.2003.12.013",
+		"issue": "4",
+		"note": "DOI: 10.1016/j.neuroscience.2003.12.013\nMAG ID: 1975416249\nPMID: 15026127",
+		"page": "869-877",
+		"title": "Hippocampal CA1 region neurodegeneration produced by ethanol withdrawal requires activation of intrinsic polysynaptic hippocampal pathways and function of N-methyl-D-aspartate receptors.",
+		"volume": "124",
+		"author": [
+			{
+				"family": "Prendergast",
+				"given": "Mark A."
+			},
+			{
+				"family": "Harris",
+				"given": "Barton R."
+			},
+			{
+				"family": "Mullholland",
+				"given": "P.J"
+			},
+			{
+				"family": "Blanchard",
+				"given": "John A."
+			},
+			{
+				"family": "Gibson",
+				"given": "D.A"
+			},
+			{
+				"family": "Holley",
+				"given": "Robert C."
+			},
+			{
+				"family": "Littleton",
+				"given": "John M."
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"2004",
+					1,
+					1
+				]
+			]
+		}
+	},
+	{
+		"id": "chenMitochondrialDynamicsFusion2009",
+		"type": "article-journal",
+		"abstract": "Neurons are metabolically active cells with high energy demands at locations distant from the cell body. As a result, these cells are particularly dependent on mitochondrial function, as reflected by the observation that diseases of mitochondrial dysfunction often have a neurodegenerative component. Recent discoveries have highlighted that neurons are reliant particularly on the dynamic properties of mitochondria. Mitochondria are dynamic organelles by several criteria. They engage in repeated cycles of fusion and fission, which serve to intermix the lipids and contents of a population of mitochondria. In addition, mitochondria are actively recruited to subcellular sites, such as the axonal and dendritic processes of neurons. Finally, the quality of a mitochondrial population is maintained through mitophagy, a form of autophagy in which defective mitochondria are selectively degraded. We review the general features of mitochondrial dynamics, incorporating recent findings on mitochondrial fusion, fission, transport and mitophagy. Defects in these key features are associated with neurodegenerative disease. Charcot-Marie-Tooth type 2A, a peripheral neuropathy, and dominant optic atrophy, an inherited optic neuropathy, result from a primary deficiency of mitochondrial fusion. Moreover, several major neurodegenerative diseases—including Parkinson's, Alzheimer's and Huntington's disease—involve disruption of mitochondrial dynamics. Remarkably, in several disease models, the manipulation of mitochondrial fusion or fission can partially rescue disease phenotypes. We review how mitochondrial dynamics is altered in these neurodegenerative diseases and discuss the reciprocal interactions between mitochondrial fusion, fission, transport and mitophagy.",
+		"container-title": "Human Molecular Genetics",
+		"DOI": "10.1093/hmg/ddp326",
+		"note": "DOI: 10.1093/hmg/ddp326\nMAG ID: 2105043890\nPMCID: 2758711\nPMID: 19808793",
+		"title": "Mitochondrial dynamics–fusion, fission, movement, and mitophagy–in neurodegenerative diseases",
+		"volume": "18",
+		"author": [
+			{
+				"family": "Chen",
+				"given": "Hsiuchen"
+			},
+			{
+				"family": "Chan",
+				"given": "David C."
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"2009",
+					10,
+					15
+				]
+			]
+		}
+	},
+	{
+		"id": "wangMechanismCa2Dependent2009",
+		"type": "article-journal",
+		"abstract": "Summary  Mitochondria are mobile organelles and cells regulatemitochondrial movement in order to meet the changing energy needs of each cellular region. Ca 2+  signaling, which halts both anterograde and retrograde mitochondrial motion, serves as one regulatory input. Anterograde mitochondrial movement is generated by kinesin-1, which interacts with the mitochondrial protein Miro through an adaptor protein, milton. We show that kinesin is present on all axonal mitochondria, including those that are stationary or moving retrograde. We also show that the EF-hand motifs of Miro mediate Ca 2+ -dependent arrest of mitochondria and elucidate the regulatory mechanism. Rather than dissociating kinesin-1 from mitochondria, Ca 2+ -binding permits Miro to interact directly with the motor domain of kinesin-1, preventing motor/microtubule interactions. Thus, kinesin-1 switches from an active state in which it is bound to Miro only via milton, to an inactive state in which direct binding to Miro prevents its interaction with microtubules. Disrupting Ca 2+ -dependent regulation diminishes neuronal resistance to excitotoxicity.",
+		"container-title": "Cell",
+		"DOI": "10.1016/j.cell.2008.11.046",
+		"issue": "1",
+		"note": "DOI: 10.1016/j.cell.2008.11.046\nMAG ID: 1996764498\nPMCID: 2768392\nPMID: 19135897",
+		"page": "163-174",
+		"title": "The mechanism of Ca2+ -dependent regulation of kinesin-mediated mitochondrial motility.",
+		"volume": "136",
+		"author": [
+			{
+				"family": "Wang",
+				"given": "Xinnan"
+			},
+			{
+				"family": "Schwarz",
+				"given": "Thomas"
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"2009",
+					1,
+					9
+				]
+			]
+		}
+	},
+	{
+		"id": "tangMitochondrialInvolvementPostTetanic1997",
+		"type": "article-journal",
+		"abstract": "Abstract  Posttetanic potentiation (PTP) is an essential aspect of synaptic transmission that arises from a persistent presynaptic [Ca 2+ ] i  following tetanic stimulation. At crayfish neuromuscular junctions, several inhibitors of mitochondrial Ca 2+  uptake and release (tetraphenylphosphonium or TPP + , carbonyl cyanide  m -chlorophenylhydrazone or CCCP, and ruthenium red) blocked PTP and the persistence of presynaptic residual [Ca 2+ ] i , while endoplasmic reticulum (ER) Ca 2+  pump inhibitors and release channel activators (thapsigargin, 2,5-di-( tert -butyl)-1,4-benzohydroquinone or BHQ, and caffeine) had no effects. PTP apparently results from the slow efflux of tetanically accumulated mitochondrial Ca 2+ .",
+		"container-title": "Neuron",
+		"DOI": "10.1016/s0896-6273(00)81248-9",
+		"issue": "3",
+		"note": "DOI: 10.1016/s0896-6273(00)81248-9\nMAG ID: 2034780161\nPMID: 9115741",
+		"page": "483-491",
+		"title": "Mitochondrial Involvement in Post-Tetanic Potentiation of Synaptic Transmission",
+		"volume": "18",
+		"author": [
+			{
+				"family": "Tang",
+				"given": "Yun-gui"
+			},
+			{
+				"family": "Zucker",
+				"given": "Robert S."
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"1997",
+					3,
+					1
+				]
+			]
+		}
+	},
+	{
+		"id": "verstrekenSynapticMitochondriaAre2005",
+		"type": "article-journal",
+		"abstract": "Summary  In a forward screen for genes affecting neurotransmission in  Drosophila , we identified mutations in  dynamin-related protein  ( drp1 ). DRP1 is required for proper cellular distribution of mitochondria, and in mutant neurons, mitochondria are largely absent from synapses, thus providing a genetic tool to assess the role of mitochondria at synapses. Although resting Ca 2+  is elevated at  drp1  NMJs, basal synaptic properties are barely affected. However, during intense stimulation, mutants fail to maintain normal neurotransmission. Surprisingly, FM1-43 labeling indicates normal exo- and endocytosis, but a specific inability to mobilize reserve pool vesicles, which is partially rescued by exogenous ATP. Using a variety of drugs, we provide evidence that reserve pool recruitment depends on mitochondrial ATP production downstream of PKA signaling and that mitochondrial ATP limits myosin-propelled mobilization of reserve pool vesicles. Our data suggest a specific role for mitochondria in regulating synaptic strength.",
+		"container-title": "Neuron",
+		"DOI": "10.1016/j.neuron.2005.06.018",
+		"issue": "3",
+		"note": "DOI: 10.1016/j.neuron.2005.06.018\nMAG ID: 1974750801\nPMID: 16055061",
+		"page": "365-378",
+		"title": "Synaptic mitochondria are critical for mobilization of reserve pool vesicles at Drosophila neuromuscular junctions.",
+		"volume": "47",
+		"author": [
+			{
+				"family": "Verstreken",
+				"given": "Patrik"
+			},
+			{
+				"family": "Ly",
+				"given": "Cindy V."
+			},
+			{
+				"family": "Venken",
+				"given": "Koen J. T."
+			},
+			{
+				"family": "Koh",
+				"given": "Tong-Wey"
+			},
+			{
+				"family": "Zhou",
+				"given": "Yi"
+			},
+			{
+				"family": "Zhou",
+				"given": "Yi"
+			},
+			{
+				"family": "Bellen",
+				"given": "Hugo J."
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"2005",
+					8,
+					4
+				]
+			]
+		}
+	},
+	{
+		"id": "plucinskaVivoImagingDiseaserelated2012",
+		"type": "article-journal",
+		"abstract": "Mitochondria provide ATP, maintain calcium homeostasis, and regulate apoptosis. Neurons, due to their size and complex geometry, are particularly dependent on the proper functioning and distribution of mitochondria. Thus disruptions of these organelles and their transport play a central role in a broad range of neurodegenerative diseases. While  in vitro  studies have greatly expanded our knowledge of mitochondrial dynamics, our understanding  in vivo  remains limited. To address this shortcoming, we developed tools to study mitochondrial dynamics  in vivo  in optically accessible zebrafish. We demonstrate here that our newly generated tools, including transgenic “ MitoFish ,” can be used to study the  in vivo  “life cycle” of mitochondria and allows identifying pharmacological and genetic modulators of mitochondrial dynamics. Furthermore we observed profound mitochondrial transport deficits in real time in a zebrafish tauopathy model. By rescuing this phenotype using MARK2 (microtubule-affinity regulating kinase 2), we provide direct  in vivo  evidence that this kinase regulates axonal transport in a Tau-dependent manner. Thus, our approach allows detailed studies of the dynamics of mitochondria in their natural environment under normal and disease conditions.",
+		"container-title": "The Journal of Neuroscience",
+		"DOI": "10.1523/jneurosci.1327-12.2012",
+		"issue": "46",
+		"note": "DOI: 10.1523/jneurosci.1327-12.2012\nMAG ID: 2016209805\nPMID: 23152604\nS2ID: 1676e6ab4deb9e903666ce4b03b5bcb896465e1a",
+		"page": "16203-16212",
+		"title": "In vivo imaging of disease-related mitochondrial dynamics in a vertebrate model system.",
+		"volume": "32",
+		"author": [
+			{
+				"family": "Plucińska",
+				"given": "Gabriela"
+			},
+			{
+				"family": "Paquet",
+				"given": "Dominik"
+			},
+			{
+				"family": "Hruscha",
+				"given": "Alexander"
+			},
+			{
+				"family": "Godinho",
+				"given": "Leanne"
+			},
+			{
+				"family": "Haass",
+				"given": "Christian"
+			},
+			{
+				"family": "Schmid",
+				"given": "Bettina"
+			},
+			{
+				"family": "Misgeld",
+				"given": "Thomas"
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"2012",
+					11,
+					14
+				]
+			]
+		}
+	},
+	{
+		"id": "changMitochondrialTraffickingMorphology2006",
+		"type": "article-journal",
+		"abstract": "Abstract   Mitochondria are the primary generators of ATP and are important regulators of intracellular calcium homeostasis. These organelles are dynamically transported along lengthy neuronal processes, presumably for appropriate distribution to cellular regions of high metabolic demand and elevated intracellular calcium, such as synapses. The removal of damaged mitochondria that produce harmful reactive oxygen species and promote apoptosis is also thought to be mediated by transport of mitochondria to autophagosomes. Mitochondrial trafficking is therefore important for maintaining neuronal and mitochondrial health while cessation of movement may lead to neuronal and mitochondrial dysfunction. Mitochondrial morphology is also dynamic and is remodeled during neuronal injury and disease. Recent studies reveal different manifestations and mechanisms of impaired mitochondrial movement and altered morphology in injured neurons. These are likely to cause varied courses toward neuronal degeneration and death. The goal of this review is to provide an appreciation of the full range of mitochondrial function, morphology and trafficking, and the critical role these parameters play in neuronal physiology and pathophysiology.",
+		"container-title": "Progress in Neurobiology",
+		"DOI": "10.1016/j.pneurobio.2006.09.003",
+		"issue": "5",
+		"note": "DOI: 10.1016/j.pneurobio.2006.09.003\nMAG ID: 2146367213\nPMID: 17188795\nS2ID: 475c593bcc1d3182a1bb27081c181da54d512c14",
+		"page": "241-268",
+		"title": "Mitochondrial trafficking and morphology in healthy and injured neurons",
+		"volume": "80",
+		"author": [
+			{
+				"family": "Chang",
+				"given": "Diane T.W."
+			},
+			{
+				"family": "Reynolds",
+				"given": "Ian J."
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"2006",
+					12,
+					1
+				]
+			]
+		}
+	},
+	{
+		"id": "divakaruniLongTermPotentiationRequires2018",
+		"type": "article-journal",
+		"abstract": "Summary   Synaptic transmission is bioenergetically demanding, and the diverse processes underlying synaptic plasticity elevate these demands. Therefore, mitochondrial functions, including ATP synthesis and Ca2+ handling, are likely essential for plasticity. Although axonal mitochondria have been extensively analyzed, LTP is predominantly induced postsynaptically, where mitochondria are understudied. Additionally, though mitochondrial fission is essential for their function, signaling pathways that regulate fission in neurons remain poorly understood. We found that NMDAR-dependent LTP induction prompted a rapid burst of dendritic mitochondrial fission and elevations of mitochondrial matrix Ca2+. The fission burst was triggered by cytosolic Ca2+ elevation and required CaMKII, actin, and Drp1, as well as dynamin 2. Preventing fission impaired mitochondrial matrix Ca2+ elevations, structural LTP in cultured neurons, and electrophysiological LTP in hippocampal slices. These data illustrate a novel pathway whereby synaptic activity controls mitochondrial fission and show that dynamic control of fission regulates plasticity induction, perhaps by modulating mitochondrial Ca2+ handling.",
+		"container-title": "Neuron",
+		"DOI": "10.1016/j.neuron.2018.09.025",
+		"issue": "4",
+		"note": "DOI: 10.1016/j.neuron.2018.09.025\nMAG ID: 2897051671\nPMCID: 6483400\nPMID: 30318410\nS2ID: 4f619264b92b2e1257adb41aa1e34bb856fca8ec",
+		"page": "860-875",
+		"title": "Long-Term Potentiation Requires a Rapid Burst of Dendritic Mitochondrial Fission during Induction.",
+		"volume": "100",
+		"author": [
+			{
+				"family": "Divakaruni",
+				"given": "Sai Sachin"
+			},
+			{
+				"family": "Van Dyke",
+				"given": "Adam M."
+			},
+			{
+				"family": "Chandra",
+				"given": "Ramesh"
+			},
+			{
+				"family": "Chandra",
+				"given": "Ramesh"
+			},
+			{
+				"family": "LeGates",
+				"given": "Tara A."
+			},
+			{
+				"family": "Contreras",
+				"given": "Minerva"
+			},
+			{
+				"family": "Dharmasri",
+				"given": "Poorna A."
+			},
+			{
+				"family": "Higgs",
+				"given": "Henry N."
+			},
+			{
+				"family": "Lobo",
+				"given": "Mary Kay"
+			},
+			{
+				"family": "Thompson",
+				"given": "Scott M."
+			},
+			{
+				"family": "Blanpied",
+				"given": "Thomas A."
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"2018",
+					11,
+					21
+				]
+			]
+		}
+	},
+	{
+		"id": "hollenbeckAxonalTransportMitochondria2005",
+		"type": "article-journal",
+		"abstract": "Organelle transport is vital for the development and maintenance of axons, in which the distances between sites of organelle biogenesis, function, and recycling or degradation can be vast. Movement of mitochondria in axons can serve as a general model for how all organelles move: mitochondria are easy to identify, they move along both microtubule and actin tracks, they pause and change direction, and their transport is modulated in response to physiological signals. However, they can be distinguished from other axonal organelles by the complexity of their movement and their unique functions in aerobic metabolism, calcium homeostasis and cell death. Mitochondria are thus of special interest in relating defects in axonal transport to neuropathies and degenerative diseases of the nervous system. Studies of mitochondrial transport in axons are beginning to illuminate fundamental aspects of the distribution mechanism. They use motors of one or more kinesin families, along with cytoplasmic dynein, to translocate along microtubules, and bidirectional movement may be coordinated through interaction between dynein and kinesin-1. Translocation along actin filaments is probably driven by myosin V, but the protein(s) that mediate docking with actin filaments remain unknown. Signaling through the PI 3-kinase pathway has been implicated in regulation of mitochondrial movement and docking in the axon, and additional mitochondrial linker and regulatory proteins, such as Milton and Miro, have recently been described.",
+		"container-title": "Journal of Cell Science",
+		"DOI": "10.1242/jcs.02745",
+		"issue": "9",
+		"note": "DOI: 10.1242/jcs.02745\nMAG ID: 2055572268",
+		"page": "5411-5419",
+		"title": "The axonal transport of mitochondria",
+		"volume": "118",
+		"author": [
+			{
+				"family": "Hollenbeck",
+				"given": "Peter J."
+			},
+			{
+				"family": "Saxton",
+				"given": "William M."
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"2005",
+					12,
+					1
+				]
+			]
+		}
+	},
+	{
+		"id": "iwahoriActivinExertsNeurotrophic1997",
+		"type": "article-journal",
+		"abstract": "Abstract   Activin is a member of the transforming growth factor (TGF)-β superfamily, which comprises a growing list of multifunctional proteins that serve as regulators of cell proliferation and differentiation. Recently, activin was shown to regulate the neurotransmitter phenotype in peripheral neurons. It is also a potent survival factor for neurogenic clonal cell lines, retinal neurons and midbrain dopaminergic neurons. We have studied the effect of activin on hippocampal cells which show abundant expression of activin receptors or binding sites. Exposure of primary cultures of rat hippocampal neurons to activin supported neuronal survival. This neurotrophic action of activin was blocked by treatment with the tyrosine kinase inhibitor genistein or the protein kinase C inhibitor calphostin C. However, the Ca2+/calmodulin kinase inhibitor KN-62 had no effect. Nicardipine, a blocker of the  l -type Ca2+ channel, also inhibited the neurotrophic effect of activin. Furthermore, activin potentiated the depolarization-induced elevation in intracellular Ca2+ concentration ([Ca2+]i). The neurotrophic effect and the potentiation of depolarization-induced increase of [Ca2+]i caused by activin were completely abolished by the protein synthesis inhibitor cycloheximide. These results suggest that activin supports neuronal survival by increasing the expression of voltage-dependent Ca2+ channel through the action of a tyrosine kinase and of protein kinase C, but not of Ca2+/calmodulin kinase.",
+		"container-title": "Brain Research",
+		"DOI": "10.1016/s0006-8993(97)00275-8",
+		"issue": "1",
+		"note": "DOI: 10.1016/s0006-8993(97)00275-8\nMAG ID: 2094941012\nPMID: 9237517\nS2ID: 5e0b5907a0e6036411108f0d0624de3cb462b876",
+		"page": "52-58",
+		"title": "Activin exerts a neurotrophic effect on cultured hippocampal neurons",
+		"volume": "760",
+		"author": [
+			{
+				"family": "Iwahori",
+				"given": "Yuki"
+			},
+			{
+				"family": "Saito",
+				"given": "Hiroshi"
+			},
+			{
+				"family": "Torii",
+				"given": "Kunio"
+			},
+			{
+				"family": "Nishiyama",
+				"given": "Nobuyoshi"
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"1997",
+					6,
+					20
+				]
+			]
+		}
+	},
+	{
+		"id": "brandonemanuelleonAlcoholInducedNeuroinflammatoryResponse2022",
+		"type": "article-journal",
+		"abstract": "Mitochondria are essential organelles central to various cellular functions such as energy production, metabolic pathways, signaling transduction, lipid biogenesis, and apoptosis. In the central nervous system, neurons depend on mitochondria for energy homeostasis to maintain optimal synaptic transmission and integrity. Deficiencies in mitochondrial function, including perturbations in energy homeostasis and mitochondrial dynamics, contribute to aging, and Alzheimer’s disease. Chronic and heavy alcohol use is associated with accelerated brain aging, and increased risk for dementia, especially Alzheimer’s disease. Furthermore, through neuroimmune responses, including pro-inflammatory cytokines, excessive alcohol use induces mitochondrial dysfunction. The direct and indirect alcohol-induced neuroimmune responses, including pro-inflammatory cytokines, are critical for the relationship between alcohol-induced mitochondrial dysfunction. In the brain, alcohol activates microglia and increases inflammatory mediators that can impair mitochondrial energy production, dynamics, and initiate cell death pathways. Also, alcohol-induced cytokines in the peripheral organs indirectly, but synergistically exacerbate alcohol’s effects on brain function. This review will provide recent and advanced findings focusing on how alcohol alters the aging process and aggravates Alzheimer’s disease with a focus on mitochondrial function. Finally, we will contextualize these findings to inform clinical and therapeutic approaches towards Alzheimer’s disease.",
+		"container-title": "Frontiers in Behavioral Neuroscience",
+		"DOI": "10.3389/fnbeh.2021.778456",
+		"note": "DOI: 10.3389/fnbeh.2021.778456\nMAG ID: 4211022646\nPMCID: 8866940\nPMID: 35221939\nS2ID: c73d9bd75d54c14065af752e64202187ad55c65a",
+		"title": "Alcohol-Induced Neuroinflammatory Response and Mitochondrial Dysfunction on Aging and Alzheimer’s Disease",
+		"volume": "15",
+		"author": [
+			{
+				"literal": "Brandon Emanuel León"
+			},
+			{
+				"family": "Kang",
+				"given": "Seungwoo"
+			},
+			{
+				"literal": "Gabriela Franca-Solomon"
+			},
+			{
+				"family": "Shang",
+				"given": "Pei"
+			},
+			{
+				"family": "Choi",
+				"given": "Doo Sup"
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"2022",
+					2,
+					10
+				]
+			]
+		}
+	},
+	{
+		"id": "jungAlcoholWithdrawalCerebellar2015",
+		"type": "article-journal",
+		"abstract": "Cerebellar disorders trigger the symptoms of movement problems, imbalance, incoordination, and frequent fall. Cerebellar disorders are shown in various CNS illnesses including a drinking disorder called alcoholism. Alcoholism is manifested as an inability to control drinking in spite of adverse consequences. Human and animal studies have shown that cerebellar symptoms persist even after complete abstinence from drinking. In particular, the abrupt termination (ethanol withdrawal) of long-term excessive ethanol consumption has shown to provoke a variety of neuronal and mitochondrial damage to the cerebellum. Upon ethanol withdrawal, excitatory neurotransmitter molecules such as glutamate are overly released in brain areas including cerebellum. This is particularly relevant to the cerebellar neuronal network as glutamate signals are projected to Purkinje neurons through granular cells that are the most populated neuronal type in CNS. This excitatory neuronal signal may be elevated by ethanol withdrawal stress, which promotes an increase in intracellular Ca2+ level and a decrease in a Ca2+-binding protein, both of which result in the excessive entry of Ca2+ to the mitochondria. Subsequently, mitochondria undergo a prolonged opening of mitochondrial permeability transition pore and the overproduction of harmful free radicals, impeding adenosine triphosphate (ATP)-generating function. This in turn provokes the leakage of mitochondrial molecule cytochrome c to the cytosol, which triggers a cascade of adverse cytosol reactions. Upstream to this pathway, cerebellum under the condition of ethanol withdrawal has shown aberrant gene modifications through altered DNA methylation, histone acetylation, or microRNA expression. Interplay between these events and molecules may result in functional damage to cerebellar mitochondria and consequent neuronal degeneration, thereby contributing to motoric deficit. Mitochondria-targeting research may help develop a powerful new therapy to manage cerebellar disorders associated with hyperexcitatory CNS disorders like ethanol withdrawal.",
+		"container-title": "The Cerebellum",
+		"DOI": "10.1007/s12311-014-0598-8",
+		"issue": "4",
+		"note": "DOI: 10.1007/s12311-014-0598-8\nMAG ID: 1992463696\nPMID: 25195804\nS2ID: 0abf335f82bb33d2449b09d518368039c3cbce9d",
+		"page": "421-437",
+		"title": "Alcohol Withdrawal and Cerebellar Mitochondria.",
+		"volume": "14",
+		"author": [
+			{
+				"family": "Jung",
+				"given": "Marianna E."
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"2015",
+					8,
+					1
+				]
+			]
+		}
+	},
+	{
+		"id": "baekenRetrotransposonActivationDistressed2020",
+		"type": "article-journal",
+		"abstract": "Abstract   Retrotransposon activation occurs in a variety of neurological disorders including multiple sclerosis and Alzheimer’s Disease. While the origins of disease-related retrotransposon activation have remained mostly unidentified, this phenomenon may well contribute to disease progression by inducing inflammation, disrupting transcription and, potentially, genomic insertion. Here, we report that the inhibition of mitochondrial respiratory chain complex I by pharmacological agents widely used to model Parkinson’s disease leads to a significant increase in expression of the ORF1 protein of the long interspersed nucleotide element 1 (LINE1) retrotransposon in human dopaminergic LUHMES cells. These findings were recapitulated in midbrain lysates from accordingly treated wild-type mice that mimic Parkinson’s disease. Retrotransposon activation was paralleled by a loss of DNA cytosine methylation, providing a potential mechanism of retrotransposon mobilization. Loss of DNA methylation as well as retrotransposon activation were suppressed by the mitochondrial antioxidant phenothiazine, indicating that the well-established production of oxidants by inhibited complex I was causing these effects. Retrotransposon activation in some brain disorders may be less of a primary disease trigger rather than a consequence of mitochondrial distress, which is very common in neurodegenerative diseases.",
+		"container-title": "Biochemical and Biophysical Research Communications",
+		"DOI": "10.1016/j.bbrc.2020.02.106",
+		"issue": "3",
+		"note": "DOI: 10.1016/j.bbrc.2020.02.106\nMAG ID: 3007232053\nPMID: 32115149\nS2ID: 7aac3173a8fae9abf5b006a817109d790f7da022",
+		"page": "570-575",
+		"title": "Retrotransposon activation by distressed mitochondria in neurons.",
+		"volume": "525",
+		"author": [
+			{
+				"family": "Baeken",
+				"given": "Marius W."
+			},
+			{
+				"family": "Moosmann",
+				"given": "Bernd"
+			},
+			{
+				"family": "Hajieva",
+				"given": "Parvana"
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"2020",
+					5,
+					7
+				]
+			]
+		}
+	},
+	{
+		"id": "lustbaderABADDirectlyLinks2004",
+		"type": "article-journal",
+		"abstract": "Mitochondrial dysfunction is a hallmark of β-amyloid (Aβ)–induced neuronal toxicity in Alzheimer9s disease (AD). Here, we demonstrate that Aβ-binding alcohol dehydrogenase (ABAD) is a direct molecular link from Aβ to mitochondrial toxicity. Aβ interacts with ABAD in the mitochondria of AD patients and transgenic mice. The crystal structure of Aβ-bound ABAD shows substantial deformation of the active site that prevents nicotinamide adenine dinucleotide (NAD) binding. An ABAD peptide specifically inhibits ABAD-Aβ interaction and suppresses Aβ-induced apoptosis and free-radical generation in neurons. Transgenic mice overexpressing ABAD in an Aβ-rich environment manifest exaggerated neuronal oxidative stress and impaired memory. These data suggest that the ABAD-Aβ interaction may be a therapeutic target in AD.",
+		"container-title": "Science",
+		"DOI": "10.1126/science.1091230",
+		"issue": "5669",
+		"note": "DOI: 10.1126/science.1091230\nMAG ID: 2163757074\nPMID: 15087549\nS2ID: 4e037076da19c53de75f12d242899786e600961d",
+		"page": "448-452",
+		"title": "ABAD Directly Links Aß to Mitochondrial Toxicity in Alzheimer's Disease",
+		"volume": "304",
+		"author": [
+			{
+				"family": "Lustbader",
+				"given": "Joyce W."
+			},
+			{
+				"family": "Cirilli",
+				"given": "Maurizio"
+			},
+			{
+				"family": "Lin",
+				"given": "Chang"
+			},
+			{
+				"family": "Xu",
+				"given": "Hongwei"
+			},
+			{
+				"literal": "Kazuhiro Takuma"
+			},
+			{
+				"family": "Takuma",
+				"given": "Kazuhiro"
+			},
+			{
+				"family": "Wang",
+				"given": "Ning"
+			},
+			{
+				"family": "Caspersen",
+				"given": "Casper"
+			},
+			{
+				"family": "Chen",
+				"given": "Xi"
+			},
+			{
+				"family": "Chen",
+				"given": "Xi"
+			},
+			{
+				"family": "Pollak",
+				"given": "Susan"
+			},
+			{
+				"literal": "Michael O. Chaney"
+			},
+			{
+				"family": "Chaney",
+				"given": "Michael O."
+			},
+			{
+				"family": "Trinchese",
+				"given": "Fabrizio"
+			},
+			{
+				"literal": "Fabrizio Trinchese"
+			},
+			{
+				"family": "Liu",
+				"given": "Shumin"
+			},
+			{
+				"literal": "Shumin Liu"
+			},
+			{
+				"family": "Gunn-Moore",
+				"given": "Frank J."
+			},
+			{
+				"family": "Lue",
+				"given": "Lih-Fen"
+			},
+			{
+				"family": "Walker",
+				"given": "Douglas G."
+			},
+			{
+				"family": "Kuppusamy",
+				"given": "Periannan"
+			},
+			{
+				"family": "Kuppusamy",
+				"given": "Periannan"
+			},
+			{
+				"family": "Zewier",
+				"given": "Zay L."
+			},
+			{
+				"family": "Arancio",
+				"given": "Ottavio"
+			},
+			{
+				"family": "Stern",
+				"given": "David M."
+			},
+			{
+				"family": "Yan",
+				"given": "Shi Fang"
+			},
+			{
+				"family": "Yan",
+				"given": "Shirley ShiDu"
+			},
+			{
+				"family": "Wu",
+				"given": "Hao"
+			},
+			{
+				"family": "Wu",
+				"given": "Hao"
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"2004",
+					4,
+					16
+				]
+			]
+		}
+	},
+	{
+		"id": "misgeldMitostasisNeuronsMaintaining2017",
+		"type": "article-journal",
+		"abstract": "Neurons have more extended and complex shapes than other cells and consequently face a greater challenge in distributing and maintaining mitochondria throughout their arbors. Neurons can last a lifetime, but proteins turn over rapidly. Mitochondria, therefore, need constant rejuvenation no matter how far they are from the soma. Axonal transport of mitochondria and mitochondrial fission and fusion contribute to this rejuvenation, but local protein synthesis is also likely. Maintenance of a healthy mitochondrial population also requires the clearance of damaged proteins and organelles. This involves degradation of individual proteins, sequestration in mitochondria-derived vesicles, organelle degradation by mitophagy and macroautophagy, and in some cases transfer to glial cells. Both long-range transport and local processing are thus at work in achieving neuronal mitostasis—the maintenance of an appropriately distributed pool of healthy mitochondria for the duration of a neuron's life. Accordingly, defects in the processes that support mitostasis are significant contributors to neurodegenerative disorders.",
+		"container-title": "Neuron",
+		"DOI": "10.1016/j.neuron.2017.09.055",
+		"issue": "3",
+		"note": "DOI: 10.1016/j.neuron.2017.09.055\nMAG ID: 2765661779\nPMCID: 5687842\nPMID: 29096078\nS2ID: b9d912b3b40e03f651f09db8937b31b1dcd16dc5",
+		"page": "651-666",
+		"title": "Mitostasis in Neurons: Maintaining Mitochondria in an Extended Cellular Architecture",
+		"volume": "96",
+		"author": [
+			{
+				"family": "Misgeld",
+				"given": "Thomas"
+			},
+			{
+				"family": "Schwarz",
+				"given": "Thomas"
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"2017",
+					11,
+					1
+				]
+			]
+		}
+	},
+	{
+		"id": "courseTransportingMitochondriaNeurons2016",
+		"type": "article-journal",
+		"abstract": "Neurons demand vast and vacillating supplies of energy. As the key contributors of this energy, as well as primary pools of calcium and signaling molecules, mitochondria must be where the neuron needs them, when the neuron needs them. The unique architecture and length of neurons, however, make them a complex system for mitochondria to navigate. To add to this difficulty, mitochondria are synthesized mainly in the soma, but must be transported as far as the distant terminals of the neuron. Similarly, damaged mitochondria—which can cause oxidative stress to the neuron—must fuse with healthy mitochondria to repair the damage, return all the way back to the soma for disposal, or be eliminated at the terminals. Increasing evidence suggests that the improper distribution of mitochondria in neurons can lead to neurodegenerative and neuropsychiatric disorders. Here, we will discuss the machinery and regulatory systems used to properly distribute mitochondria in neurons, and how this knowledge has been leveraged to better understand neurological dysfunction.",
+		"container-title": "F1000Research",
+		"DOI": "10.12688/f1000research.7864.1",
+		"note": "DOI: 10.12688/f1000research.7864.1\nMAG ID: 2496437652\nPMCID: 4955021\nPMID: 27508065\nS2ID: 1f66daf82c1e9852903163409daf62540cac6229",
+		"page": "1735",
+		"title": "Transporting mitochondria in neurons.",
+		"volume": "5",
+		"author": [
+			{
+				"family": "Course",
+				"given": "Meredith M."
+			},
+			{
+				"family": "Wang",
+				"given": "Xinnan"
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"2016",
+					7,
+					18
+				]
+			]
+		}
+	},
+	{
+		"id": "cardanho-ramosOrchestratingMitochondriaNeurons2020",
+		"type": "article-journal",
+		"abstract": "Mitochondria are crucial to support synaptic activity, particularly through ATP production and Ca2+ homeostasis. This implies that mitochondria need to be well distributed throughout the different neuronal sub-compartments. To achieve this, a tight and precise regulation of several neuronal cytoskeleton players is necessary to transport and dock mitochondria. As post-mitotic cells, neurons are highly dependent on mitochondrial quality control mechanisms and several cytoskeleton proteins have been implicated in mitophagy. Therefore, all of these processes are orchestrated by the crosstalk between mitochondria and the neuronal cytoskeleton to form a coordinated and tuned symphony.",
+		"container-title": "Cytoskeleton",
+		"DOI": "10.1002/cm.21585",
+		"note": "DOI: 10.1002/cm.21585\nMAG ID: 2989869844\nPMCID: 7187307\nPMID: 31782907\nS2ID: 48d02886c4d4c6c88ad704cc8ea6e9dcf1a9c986",
+		"page": "65-75",
+		"title": "Orchestrating mitochondria in neurons: Cytoskeleton as the conductor.",
+		"volume": "77",
+		"author": [
+			{
+				"family": "Cardanho‐Ramos",
+				"given": "Carlos"
+			},
+			{
+				"family": "Faria‐Pereira",
+				"given": "Andreia"
+			},
+			{
+				"family": "Morais",
+				"given": "Vanessa Alexandra"
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"2020",
+					3,
+					1
+				]
+			]
+		}
+	},
+	{
+		"id": "cherraMutantLRRK2Elicits2013",
+		"type": "article-journal",
+		"abstract": "Mutations in the leucine-rich repeat kinase 2 (LRRK2) have been associated with familial and sporadic cases of Parkinson disease. Mutant LRRK2 causes invitro and invivo neurite shortening, mediated in part by autophagy, and a parkinsonian phenotype in transgenic mice; however, the underlying mechanisms remain unclear. Because mitochondrial content/function is essential for dendritic morphogenesis and maintenance, we investigated whether mutant LRRK2 affects mitochondrial homeostasis in neurons. Mouse cortical neurons expressing either LRRK2 G2019S or R1441C mutations exhibited autophagic degradation of mitochondria and dendrite shortening. In addition, mutant LRRK2 altered the ability of the neurons to buffer intracellular calcium levels. Either calcium chelators or inhibitors of voltage-gated L-type calcium channels prevented mitochondrial degradation and dendrite shortening. These data suggest that mutant LRRK2 causes a deficit in calcium homeostasis, leading to enhanced mitophagy and dendrite shortening.",
+		"container-title": "American Journal of Pathology",
+		"DOI": "10.1016/j.ajpath.2012.10.027",
+		"issue": "2",
+		"note": "DOI: 10.1016/j.ajpath.2012.10.027\nMAG ID: 2168458739\nPMCID: 3562730\nPMID: 23231918\nS2ID: 8143e5c00de67991242f86a398b3c4e6ef429881",
+		"page": "474-484",
+		"title": "Mutant LRRK2 Elicits Calcium Imbalance and Depletion of Dendritic Mitochondria in Neurons",
+		"volume": "182",
+		"author": [
+			{
+				"family": "Cherra",
+				"given": "Salvatore J."
+			},
+			{
+				"family": "Steer",
+				"given": "Erin"
+			},
+			{
+				"literal": "Aaron M. Gusdon"
+			},
+			{
+				"family": "Gusdon",
+				"given": "Aaron M."
+			},
+			{
+				"family": "Kiselyov",
+				"given": "Kirill"
+			},
+			{
+				"family": "Chu",
+				"given": "Charleen T."
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"2013",
+					2,
+					1
+				]
+			]
+		}
+	},
+	{
+		"id": "vanhauwaertSurveillanceTransportationMitochondria2019",
+		"type": "article-journal",
+		"abstract": "Neurons need to allocate and sustain mitochondria to provide adequate energy supply and sufficient Ca2+-buffering capacity in each sub-specialization of their extensive arborizations. Damaged mitochondria, which are highly deleterious to the neuron, must be rapidly repaired or eliminated, even when they are left at terminals extremely far away from the soma. The unique shape of neurons complicates the tasks of both transporting and clearing mitochondria. Errors in the underlying molecular regulations cause detrimental neurodegeneration. Here, we review the molecular machinery and regulatory mechanisms employed to transport, distribute, and clear mitochondria in neurons, and how these fundamental regulations are compromised in neurological disorders.",
+		"container-title": "Current Opinion in Neurobiology",
+		"DOI": "10.1016/j.conb.2019.01.015",
+		"ISSN": "09594388",
+		"journalAbbreviation": "Current Opinion in Neurobiology",
+		"language": "en",
+		"page": "87-93",
+		"source": "DOI.org (Crossref)",
+		"title": "Surveillance and transportation of mitochondria in neurons",
+		"URL": "https://linkinghub.elsevier.com/retrieve/pii/S0959438818301909",
+		"volume": "57",
+		"author": [
+			{
+				"family": "Vanhauwaert",
+				"given": "Roeland"
+			},
+			{
+				"family": "Bharat",
+				"given": "Vinita"
+			},
+			{
+				"family": "Wang",
+				"given": "Xinnan"
+			}
+		],
+		"accessed": {
+			"date-parts": [
+				[
+					"2023",
+					3,
+					10
+				]
+			]
+		},
+		"issued": {
+			"date-parts": [
+				[
+					"2019",
+					8
+				]
+			]
+		}
+	}
 ]

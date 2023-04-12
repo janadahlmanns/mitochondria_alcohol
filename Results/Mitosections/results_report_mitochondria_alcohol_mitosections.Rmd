@@ -2,16 +2,17 @@
 title: "Analysis Mitochondria distribution along sections through neuronal soma"
 author: "Dr. Jana Dahlmanns"
 date: "`r Sys.Date()`"
-output: 
+output:
   word_document:
     reference_docx: reference_doc.docx
+  pdf_document: default
 header-includes:
-  - \usepackage{helvet} # this is used to set the font to helvetica instead of the horrible default
-  - \renewcommand{\familydefault}{\sfdefault}
-extra_dependencies: ["float"]
+- \usepackage{helvet}
+- \renewcommand{\familydefault}{\sfdefault}
+extra_dependencies: float
 fig_caption: yes
-bibliography: "`r rbbt::bbt_write_bib('bibliography.json', overwrite = TRUE)`" 
-csl: elsevier-vancouver.csl
+bibliography: bibliography.json
+csl: "elsevier-vancouver.csl"
 ---
 ```{r change_wd, include = F}
 setwd(getSrcDirectory(function(){})[1])
@@ -28,6 +29,7 @@ library(collections)
 library(cowplot)
 library(pander)
 library(multcomp)
+library(ggprism)
 ```
 
 ```{r pull_results, include=F}
@@ -197,8 +199,8 @@ results %>% filter(line == "line1") %>% ggplot(aes(x = distance_norm, y = intens
 For the mentioned reasons, it is sensible to use several different sections in neurons to compensate for the uneven neuronal soma shape:
 
 ```{r plot_lines_separately, echo = F, message = F, results='hide',fig.keep='all', fig.width= 10 , fig.height = 7, fig.cap="Normalized intensity profiles along sections through the soma"}
-results_wrap <- results %>% mutate(condition_wrap = str_wrap(results$condition, width = 15))
-results_wrap %>% ggplot(aes(x = distance_norm, y = intensity_norm, color = recording)) + geom_line() + facet_grid(rows = vars(condition_wrap), cols = vars(line)) + theme_classic(base_size = 20) + scale_x_continuous(labels = function(x) ifelse(x == 0, "0", x))
+results_wrap <- results %>% mutate(condition_wrap = str_wrap(results$condition, width = 10))
+results_wrap %>% ggplot(aes(x = distance_norm, y = intensity_norm, color = recording)) + geom_line() + facet_grid(rows = vars(condition_wrap), cols = vars(line)) + theme_classic(base_size = 20) + scale_x_continuous(labels = function(x) ifelse(x == 0, "0", x)) + theme(legend.position = "none")
 
 ```
 
@@ -308,9 +310,12 @@ summary(res_aov)
 post_test <- glht(res_aov, linfct = mcp(condition = "Dunnett"))
 stats_sum <- tidy(summary(post_test))
 
+pvalues_df <- data.frame(group1 = c(included_conditions[3], included_conditions[2]), group2 = c(included_conditions[1], included_conditions[1]), label = c(0.05, 0.0002), y.position = c(0.75, 0.8))
 
 # plot
-results_sect %>% group_by(condition, section) %>% mutate(int_section_mean = mean(section_mean), int_section_sd = sd(section_mean)) %>%  ggplot(aes(x = section, y = int_section_mean, color = condition)) + geom_pointrange(aes(ymin=int_section_mean-int_section_sd, ymax=int_section_mean+int_section_sd), position = position_dodge(width = 0.75)) + theme_classic(base_size = 20) + scale_colour_colorblind() + labs(x = "distance from nucleus", y = "mitochondria fluorescence") + theme(legend.position = c(0.22, 0.15), legend.direction = "vertical") 
+results_sect %>% group_by(condition, section) %>% mutate(int_section_mean = mean(section_mean), int_section_sd = sd(section_mean)) %>%  ggplot(aes(x = section, y = int_section_mean, color = condition)) + geom_pointrange(aes(ymin=int_section_mean-int_section_sd, ymax=int_section_mean+int_section_sd), position = position_dodge(width = 0.6)) + theme_classic(base_size = 20) + scale_colour_colorblind() + labs(x = "distance from nucleus", y = "mitochondria fluorescence") + theme(legend.position = c(0.22, 0.15), legend.direction = "vertical") 
+
+stats_data %>% ggplot(aes(x = condition, y = section_mean)) + geom_boxplot() + add_pvalue(pvalues_df, xmin = "group1", xmax = "group2", label = "label", y.position = "y.position")
 
 #rm(list=setdiff(ls(), c("data", "condition_lookup", "included_conditions", which_image", "sample_sizes", "results", "results_wrap", "results_fit", "descriptive_statistics")))
 ```
