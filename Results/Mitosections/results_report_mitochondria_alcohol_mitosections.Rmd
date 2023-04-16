@@ -11,7 +11,7 @@ header-includes:
 - \renewcommand{\familydefault}{\sfdefault}
 extra_dependencies: float
 fig_caption: yes
-bibliography: bibliography.json
+bibliography: "`r rbbt::bbt_write_bib('bibliography.bib', overwrite = TRUE)`" 
 csl: "elsevier-vancouver.csl"
 ---
 ```{r change_wd, include = F}
@@ -47,8 +47,6 @@ rm(list=setdiff(ls(), c("data", "condition_lookup")))
 ```
 
 ## Introduction
-
-@cangkramaProtumorigenicMDia2MIRO1Axis2022
 
 We analyzed the distribution of mitochondria in the soma of neurons. We used dissociated neuronal cultures that were treated under different conditions prior to fixation, staining and imaging ([staining protocol](../../Methods/mitostaining.xlsx)).
 
