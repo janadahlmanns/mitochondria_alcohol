@@ -1,6 +1,7 @@
 ---
-title: "Analysis Mitochondria distribution along sections through neuronal soma"
+title: "Analysis of Mitochondria distribution along sections through neuronal soma"
 author: "Dr. Jana Dahlmanns"
+subtitle: "Status report"
 date: "`r Sys.Date()`"
 output:
   word_document:
@@ -49,20 +50,20 @@ rm(list=setdiff(ls(), c("data", "condition_lookup")))
 
 ## Introduction
 
-We analyzed the distribution of mitochondria in the soma of neurons. We used dissociated neuronal cultures that were treated under different conditions prior to fixation, staining and imaging ([staining protocol](../../Methods/mitostaining.xlsx)).
+We analyzed the distribution of mitochondria in the soma of neurons. We used dissociated neuronal cultures that were treated under different conditions prior to fixation, staining and imaging.
 
 ### The images
 
 The cultures contained a natural mix of hippocampal cell types. Neurons were chosen for imaging based on general cell morphology. Here is an overview of all imaged cells.
 
 
-```{r show_thumbnails, echo = F, message = F, results='hide',fig.keep='all', fig.cap="Thumbnails of all analyzed images", fig.width=10, fig.height=10}
+```{r show_thumbnails, echo = F, message = F, results='hide',fig.keep='all', fig.cap="Thumbnails of all analyzed images", fig.width=10, fig.height=6}
 
 plotlist <- list()
 for (r in 1:length(data)){
   plotlist[[r]] <- data[[r]][["images"]][["thumbnail"]]
 }
-plots_per_row <- 5
+plots_per_row <- 9
 n_row <- length(data) %/% plots_per_row
 plots_left <- length(data) %% plots_per_row
 if (plots_left > 0) {n_row <- n_row +1}
@@ -84,7 +85,7 @@ The analyzed images contained three color channels: The cells were stained with 
 
 
 ```{r show_original_image, echo = F, message = F, results='hide',fig.keep='all', fig.width=10, fig.height=10, fig.cap="Exemplary image, separated into color channels and merge"}
-which_image = 1
+which_image = 22
 first_image <- data[[which_image]][["images"]][["rawimage"]]
 
 plotlist <- list()
