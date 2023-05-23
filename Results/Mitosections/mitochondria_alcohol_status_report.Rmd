@@ -45,7 +45,49 @@ for (r in 1:nrow(condition_lookup)) {
   # load recording
   data[[r]] <- readRDS(file = paste(condition_lookup$filename[r], ".rds", sep=""))
 }
-rm(list=setdiff(ls(), c("data", "condition_lookup")))
+
+data_actin <- data
+data_mito <- data
+
+plot_section_line <- function(line_coordinates, x_n, y_n, rawimage) {
+    line <- data.frame(t(line_coordinates))
+    colnames(line) <- c("x", "y")
+    line <- line %>% mutate(distance = sqrt(((x-x_n)^2) + ((y-y_n)^2))) %>% arrange(distance) 
+    distance_min <- min(line$distance)
+    distance_max <- max(line$distance)
+    line <- line %>% mutate(distance_norm = (distance-distance_min)/(distance_max - distance_min))
+    mitovalues <- matrix(0, nrow(line), 1)
+    for (i in 1:nrow(line)) {
+      mitovalues[i,] <- imageData(rawimage)[line$x[i], line$y[i],2]
+    }
+    line <- line %>% mutate(mito_section_values = mitovalues)
+    return(line)
+    
+  }
+
+
+
+for (r in 1:length(data)) {
+      rawimage <- data[[r]][["images"]][["rawimage"]]
+  for (s in 1:3){
+    section <- paste("s", s, sep="")
+    nucleus_x <- data[[r]][["sections"]][[section]][["x"]][1]
+    nucleus_y <- data[[r]][["sections"]][[section]][["y"]][1]
+    line_coordinates <- matrix(NA, 2, length(data[[r]][["sections"]][[section]][["x"]]))
+    line_coordinates[1,] <- data[[r]][["sections"]][[section]][["x"]]
+    line_coordinates[2,] <- data[[r]][["sections"]][[section]][["y"]]
+    
+    line <- plot_section_line(line_coordinates, nucleus_x, nucleus_y, rawimage)
+    
+    data_mito[[r]][["sections"]][[section]][["distance"]] <- line$distance
+    data_mito[[r]][["sections"]][[section]][["distance_norm"]] <- line$distance_norm
+    data_mito[[r]][["sections"]][[section]][["mito_section_values"]] <- line$mito_section_values
+    
+  }
+}
+
+
+rm(list=setdiff(ls(), c("condition_lookup", "data_actin", "data_mito")))
 ```
 
 ## Introduction
@@ -60,12 +102,12 @@ The cultures contained a natural mix of hippocampal cell types. Neurons were cho
 ```{r show_thumbnails, echo = F, message = F, results='hide',fig.keep='all', fig.cap="Thumbnails of all analyzed images", fig.width=10, fig.height=6}
 
 plotlist <- list()
-for (r in 1:length(data)){
-  plotlist[[r]] <- data[[r]][["images"]][["thumbnail"]]
+for (r in 1:length(data_mito)){
+  plotlist[[r]] <- data_mito[[r]][["images"]][["thumbnail"]]
 }
 plots_per_row <- 9
-n_row <- length(data) %/% plots_per_row
-plots_left <- length(data) %% plots_per_row
+n_row <- length(data_mito) %/% plots_per_row
+plots_left <- length(data_mito) %% plots_per_row
 if (plots_left > 0) {n_row <- n_row +1}
 par(mfrow=c(n_row, plots_per_row), mar=c(0, 0, 0, 0), pty = "s")
 sapply(seq_along(plotlist), function(x){
@@ -75,7 +117,7 @@ sapply(seq_along(plotlist), function(x){
 })
 par(mfrow=c(1,1), mar=c(0, 0, 0, 0), pty = "m")
 
-rm(list=setdiff(ls(), c("data", "condition_lookup")))
+rm(list=setdiff(ls(), c("condition_lookup", "data_actin", "data_mito")))
 ```
 
 
@@ -86,7 +128,7 @@ The analyzed images contained three color channels: The cells were stained with 
 
 ```{r show_original_image, echo = F, message = F, results='hide',fig.keep='all', fig.width=10, fig.height=10, fig.cap="Exemplary image, separated into color channels and merge"}
 which_image = 22
-first_image <- data[[which_image]][["images"]][["rawimage"]]
+first_image <- data_mito[[which_image]][["images"]][["rawimage"]]
 
 plotlist <- list()
 plotlist[[1]] <- rgbImage(red = channel(first_image,"r"))
@@ -100,7 +142,7 @@ sapply(seq_along(plotlist), function(x){
               ytop = 0, ybottom = 1, interpolate = FALSE)
 })
 
-rm(list=setdiff(ls(), c("data", "condition_lookup", "which_image")))
+rm(list=setdiff(ls(), c("condition_lookup", "data_actin", "data_mito", "which_image")))
 ```
 
 
@@ -116,7 +158,7 @@ pander(sample_sizes)
 
 ## Analysis steps
 
-A user blinded to the experimental condition marked a starting point at the nuclear envelope and an endpoint at the somatic cell membrane. We then analyzed the  green fluorescence intensity distribution along the connecting line as a marker for the distribution of mitochondria.
+A user blinded to the experimental condition marked a starting point at the nuclear envelope and an endpoint at the somatic cell membrane. We then analyzed the fluorescence intensity distribution along the connecting line as a marker for the distribution of mitochondria.
 
 ### Intensity profiles
 
@@ -128,6 +170,7 @@ Originally @cangkramaProtumorigenicMDia2MIRO1Axis2022, one line was drawn per ce
 
 ```{r normalize_intensity, echo = F}
 
+normalize_intensity <- function(data) {
 for (r in 1:length(data)) {
   line1 <- data[[r]][["sections"]][["s1"]]
   line2 <- data[[r]][["sections"]][["s2"]]
@@ -139,19 +182,24 @@ for (r in 1:length(data)) {
   data[[r]][["sections"]][["s2"]] <- line2 %>% mutate(mito_values_norm = (mito_section_values-normvalue_min) / (normvalue_max - normvalue_min))
   data[[r]][["sections"]][["s3"]] <- line3 %>% mutate(mito_values_norm = (mito_section_values-normvalue_min) / (normvalue_max - normvalue_min))
 }
+  return(data)
+}
 
-rm(list=setdiff(ls(), c("data", "condition_lookup", "which_image", "sample_sizes")))
+data_mito <- normalize_intensity(data_mito)
+data_actin <- normalize_intensity(data_actin)
+
+rm(list=setdiff(ls(), c("condition_lookup", "data_actin", "data_mito", "which_image", "sample_sizes")))
 ```
 
 ```{r prepare_results, echo = F}
-rm(list=setdiff(ls(), c("data", "condition_lookup", "sample_sizes")))
+
+prepare_results <- function(data) {
 col_condition <- data.frame()
 col_rec <- data.frame()
 col_line <- data.frame()
 col_dist_norm <- data.frame()
 col_int_norm <- data.frame()
 col_poly <- data.frame()
-
 
 for (r in 1:length(data)) {
   condition <- data[[r]][["condition"]]
@@ -186,44 +234,8 @@ results <- data.frame(recording = col_rec, condition = col_condition, line = col
 colnames(results) <- c("recording", "condition", "line", "distance_norm", "intensity_norm", "poly_int", "poly1", "poly2", "poly3")
 
 results <-  results %>% add_count(condition)
-included_conditions <- unique(results$condition) 
-
-rm(list=setdiff(ls(), c("data", "condition_lookup", "which_image", "sample_sizes", "results", "included_conditions")))
-```
-
-For comparability with the previous study, I plotted here the results, using the first (maximum length) somatic profiles only. 
-
-```{r plot_line1, echo = F, message = F, results='hide',fig.keep='all', fig.width= 10 , fig.height = 6, fig.cap="Normliazed intensity profiles along first sections through the soma"}
-
-results %>% filter(line == "line1") %>% ggplot(aes(x = distance_norm, y = intensity_norm, color = condition)) + geom_smooth() + theme_classic(base_size = 15) + scale_colour_colorblind() + theme(legend.position = c(0.2, 0.25), legend.direction = "vertical")
-
-```
-
-For the mentioned reasons, it is sensible to use several different sections in neurons to compensate for the uneven neuronal soma shape. Here is an overview of all thus far extracted sections through the soma:
-
-```{r plot_lines_separately, echo = F, message = F, results='hide',fig.keep='all', fig.width= 10 , fig.height = 12, fig.cap="Overview of all normalized intensity profiles along sections through the soma"}
 results_wrap <- results %>% mutate(condition_wrap = str_wrap(results$condition, width = 10))
-results_wrap %>% ggplot(aes(x = distance_norm, y = intensity_norm, color = recording)) + geom_line() + facet_grid(rows = vars(condition_wrap), cols = vars(line)) + theme_classic(base_size = 20) + scale_x_continuous(labels = function(x) ifelse(x == 0, "0", x)) + theme(legend.position = "none")
 
-```
-
-We can see, that some curves consist of very few data points, because the soma is only a thin edge around the nucleus in some regions. Other sections span across wider sections of soma. Overal there seems to be no particular difference between line 1 (sections across widest area of the soma) and lines 2 and 3 (sections across other parts of the soma).
- 
-
-```{r plot_all_lines, echo = F, message = F, results='hide', fig.keep='all', fig.width= 10 , fig.height = 6, fig.cap="Normalized intensity profiles along sections through the soma - all three sections averaged"}
-
-results %>% ggplot(aes(x = distance_norm, y = intensity_norm, color = condition)) + geom_smooth() + theme_classic(base_size = 15) + scale_colour_colorblind() + theme(legend.position = c(0.2, 0.25), legend.direction = "vertical")
-
-
-```
-
-When comparing the curves of only the first (longest) sections with the averages of all three sections, we can see that the mitochondria distribution is about the same, but the distribution shape becomes more pronounced with more data, which makes sense. Hence, we'll be using all three sections for the following analysis steps.
-
-### Statistical comparison
-
-To compare the different distributions, we divided them up into 10 sections (0-0.1 distance from the nucleus, 0.1-0.2, 0.2-0.3,...). Within each section, values are averaged and statistically compared through anova with Dunnett's post-hoc corrections (used when comparing multiple treatment conditions to one control).
-
-```{r comparison_of_curve_sections, echo = F, message = F, warning = F, results='hide',fig.keep='all', fig.width= 10 , fig.height = 9, fig.cap="Correlation of the different curves"}
 
 # Define range of curve sections
 edges <- data.frame(start = seq(from = 0, to = 0.9, by = 0.1)) %>% mutate(end = start + 0.1)
@@ -239,18 +251,75 @@ results_sect$section[results_sect$distance_norm == 1] <- nrow(edges)
 results_sect$section <- factor(results_sect$section)
 results_sect <- results_sect %>% group_by(recording, section) %>% mutate(section_mean=mean(intensity_norm)) %>% ungroup() 
 # maybe exclude curves/sections with too little values?
+
+return_list <- list("results" = results, "results_wrap" = results_wrap, "results_sect" = results_sect)
+return(return_list)
+}
+
+all_results_mito <- prepare_results(data_mito)
+all_results_actin <- prepare_results(data_actin)
+
+
+included_conditions <- unique(all_results_mito$results$condition) 
+
+rm(list=setdiff(ls(), c("condition_lookup", "data_actin", "data_mito", "which_image", "sample_sizes", "all_results_mito", "all_results_actin", "included_conditions")))
+
+```
+
+For comparability with the previous study, I plotted here the results, using the first (maximum length) somatic profiles only. 
+
+```{r plot_line1, echo = F, message = F, results='hide',fig.keep='all', fig.width= 10 , fig.height = 6, fig.cap="Normliazed intensity profiles along first sections through the soma"}
+
+all_results_mito$results %>% filter(line == "line1") %>% ggplot(aes(x = distance_norm, y = intensity_norm, color = condition)) + geom_smooth() + theme_classic(base_size = 15) + theme(legend.position = "right", legend.direction = "vertical") + labs(x = "distance from nucleus", y = "mitochondria density")
+
+```
+
+For the mentioned reasons, it is sensible to use several different sections in neurons to compensate for the uneven neuronal soma shape. Here is an overview of all thus far extracted sections through the soma:
+
+```{r plot_lines_separately, echo = F, message = F, results='hide',fig.keep='all', fig.width= 10 , fig.height = 12, fig.cap="Overview of all normalized intensity profiles along sections through the soma"}
+
+all_results_mito$results_wrap %>% ggplot(aes(x = distance_norm, y = intensity_norm, color = recording)) + geom_line() + facet_grid(rows = vars(condition_wrap), cols = vars(line)) + theme_classic(base_size = 10) + scale_x_continuous(labels = function(x) ifelse(x == 0, "0", x)) + theme(legend.position = "none") + labs(x = "distance from nucleus", y = "mitochondria density")
+
+```
+
+We can see, that some curves consist of very few data points, because the soma is only a thin edge around the nucleus in some regions. Other sections span across wider sections of soma. Overall there is no apparent difference between line 1 (sections across widest area of the soma) and lines 2 and 3 (sections across other parts of the soma).
+ 
+
+```{r plot_all_lines, echo = F, message = F, results='hide', fig.keep='all', fig.width= 10 , fig.height = 6, fig.cap="Normalized intensity profiles along sections through the soma - all three sections averaged"}
+
+all_results_mito$results %>% ggplot(aes(x = distance_norm, y = intensity_norm, color = condition)) + geom_smooth() + theme_classic(base_size = 15) + theme(legend.position = "right", legend.direction = "vertical") + labs(x = "distance from nucleus", y = "mitochondria density")
+
+
+```
+
+When comparing the curves of only the first (longest) sections with the averages of all three sections, we can see that the mitochondria distribution is about the same, but the distribution shape becomes more pronounced with more data, which makes sense. Hence, we'll be using all three sections for the following analysis steps.
+
+### Statistical comparison
+
+To compare the different distributions, we divided them up into 10 sections (0-0.1 distance from the nucleus, 0.1-0.2, 0.2-0.3,...). Within each section, values are averaged and statistically compared through anova with Dunnett's post-hoc corrections (used when comparing multiple treatment conditions to one control).
+I then performed statistical comparison between the different treatment groups and controls for each of the 10 distance sections.
+
+## Current results
+
+### Reduced somatic actin density in cultures treated with Activin A for 2 days and for 14 days, but not in between at 4 days and 10 days
+
+```{r comparison_actin_under_activin, echo = F, message = F, warning = F, results='hide',fig.keep='all', fig.width= 17 , fig.height = 20, fig.cap="Statistical comparison of actin density in Activin A treated cultures"}
+
 # statistical comparison within each section
 
 #descriptive stats
-descriptive_statistics <- results_sect %>% group_by(section, condition) %>% summarize(mean = mean(section_mean, na.rm = T), sd = sd(section_mean, na.rm = T))
+descriptive_statistics <- all_results_actin$results_sect %>% group_by(section, condition) %>% summarize(mean = mean(section_mean, na.rm = T), sd = sd(section_mean, na.rm = T))
 
-reference_condition <- 3 ############################ input here: which condition is the reference condition
+reference_condition <- 8 ############################ input here: which condition is the reference condition
+plot_conditions <- included_conditions[c(1,2,8,11,12)] #### input here: which conditions are part of the comparison
 section_plots <- list()
 section_stats <- list()
+pvalues_df <- list()
 n_sig <- matrix(NA, 10,1)
+stats_data_all_sections <- all_results_actin$results_sect  %>% filter(condition %in% plot_conditions) %>% mutate(condition = factor(condition))
+stats_data_all_sections$condition <- factor(stats_data_all_sections$condition, included_conditions[c(8,1,12,11,2)]) #### input here: specify order of conditions in the plot - make sure to put the reference condition first!
 for (selected_section in 1:10) {
-stats_data <- results_sect %>% filter(section == selected_section) %>% mutate(condition = factor(condition))
-stats_data$condition <- relevel(stats_data$condition, ref = included_conditions[reference_condition]) 
+stats_data <- stats_data_all_sections %>% filter(section == selected_section)
 
 res_aov <- aov(section_mean ~ condition, data = stats_data)
 summary(res_aov)
@@ -260,60 +329,214 @@ stats_sum <- stats_sum %>% mutate(condition = str_extract(contrast, ".+(?=\\s-)"
 n_sig[selected_section] <- sum(stats_sum$sig)
 section_stats[[selected_section]] <- stats_sum
 
-pvalues_df <- data.frame(group1 = matrix(included_conditions[reference_condition],n_sig[selected_section],1), group2 = stats_sum$condition[stats_sum$sig], label = format(stats_sum$adj.p.value[stats_sum$sig], digits = 3), y.position = seq(from = max(stats_data$section_mean) + 0.075, by = 0.075, length.out = n_sig[selected_section]))
+pvalues_df[[selected_section]] <- data.frame(group1 = matrix(included_conditions[reference_condition],n_sig[selected_section],1), group2 = stats_sum$condition[stats_sum$sig], label = format(stats_sum$adj.p.value[stats_sum$sig], digits = 3), y.position = seq(from = max(stats_data$section_mean) + 0.075, by = 0.075, length.out = n_sig[selected_section]))
 
-section_plots[[selected_section]] <- stats_data %>% ggplot(aes(x = condition, y = section_mean)) + geom_boxplot() + add_pvalue(pvalues_df, xmin = "group1", xmax = "group2", label = "label", y.position = "y.position") + labs(title = paste("Section", selected_section)) + scale_x_discrete(guide = guide_axis(n.dodge = 3)) + scale_y_continuous(limits = c(0,1))
+section_plots[[selected_section]] <- stats_data %>% ggplot(aes(x = condition, y = section_mean)) + geom_boxplot() + add_pvalue(pvalues_df[[selected_section]], xmin = "group1", xmax = "group2", label = "label", y.position = "y.position") + labs(title = paste("Section", selected_section)) + scale_x_discrete(guide = guide_axis(n.dodge = 3)) + scale_y_continuous(limits = c(0,1.3))
 }
 
-# all sections plot
-results_sect %>% group_by(condition, section) %>% mutate(int_section_mean = mean(section_mean), int_section_sd = sd(section_mean)) %>%  ggplot(aes(x = section, y = int_section_mean, color = condition)) + geom_pointrange(aes(ymin=int_section_mean-int_section_sd, ymax=int_section_mean+int_section_sd), position = position_dodge(width = 0.6)) + theme_classic(base_size = 20) + scale_colour_colorblind() + labs(x = "distance from nucleus", y = "mitochondria fluorescence") + theme(legend.position = c(0.22, 0.175), legend.direction = "vertical") 
-
-
-#rm(list=setdiff(ls(), c("data", "condition_lookup", "included_conditions", which_image", "sample_sizes", "results", "results_wrap", "results_fit", "descriptive_statistics")))
-```
-
-I then performed statistical comparison between the different tratment groups and controls for each of the 10 distance sections:
-
-
-
-```{r separate_section_plots_stats, echo = F, message = F, warning = F, results='hide',fig.keep='all', fig.width= 17 , fig.height = 24, fig.cap="Statistical comparison of different conditions for each section"}
 # arrange plots of separate sections
 plot_grid(section_plots[[1]], section_plots[[2]], section_plots[[3]], section_plots[[4]], section_plots[[5]], section_plots[[6]], section_plots[[7]], section_plots[[8]], section_plots[[9]], section_plots[[10]], ncol = 2)
-```
 
-Note that for a quick first overview, all conditions are compared to "Control 14 days" which is not entirely correct.
-Also, in section 9 there seems to be a statistically significant difference between "Control 14 days" and "Control 7 days", which are both just untreated cultures. This might indicate that we need more data, to have sound statistical testing results.
-
-## Current results
-
-### In Activin treated cultures, the overall mitochondria population is decreased:
-```{r reduced_mito_in_activin, echo = F, message = F, warning = F, results='hide',fig.keep='all', fig.width= 10 , fig.height = 7, fig.cap="Reduced mitochondria population in the soma of Activin A treated cultures"}
-
-# activin results 
-plot_conditions <- included_conditions[c(1,2,3)]
-results_sect %>% filter(condition %in% plot_conditions) %>% group_by(condition, section) %>% mutate(int_section_mean = mean(section_mean), int_section_sd = sd(section_mean)) %>%  ggplot(aes(x = section, y = int_section_mean, color = condition)) + geom_pointrange(aes(ymin=int_section_mean-int_section_sd, ymax=int_section_mean+int_section_sd), position = position_dodge(width = 0.6)) + theme_classic(base_size = 20) + scale_colour_colorblind() + labs(x = "distance from nucleus", y = "mitochondria fluorescence") + theme(legend.position = c(0.22, 0.175), legend.direction = "vertical") + annotate(geom = "text", x = c(1,2,7,9,10), y = 0.8, label="***", color = "#E69F00", size = 8) + annotate(geom = "text", x = c(3), y = 0.75, label="*", color = "black", size = 8) + annotate(geom = "text", x = c(4,6,7,8,9,10), y = 0.75, label="***", color = "black", size = 8)
 
 ```
 
-Cultures treated with Activin A for 2 days and for 14 days have decreased overall population of mitochondria in the soma. The effect seems smaller around the nucleus (distance 1-5) and more pronounced towards the outskrits of the soma (distance 5-10).
+ 
 
-### Follistatin does not affect somatic mitochondrial population of neurons
+```{r actin_in_activin, echo = F, message = F, warning = F, results='hide',fig.keep='all', fig.width= 10 , fig.height = 7, fig.cap="Actin density in the soma of Activin A treated cultures"}
 
-```{r increased_mito_in_follistatin, echo = F, message = F, warning = F, results='hide',fig.keep='all', fig.width= 10 , fig.height = 7, fig.cap="Maintained mitochondria population in the soma of Follistatin treated cultures"}
+stats_data_all_sections %>% group_by(condition, section) %>% mutate(int_section_mean = mean(section_mean), int_section_sd = sd(section_mean)) %>%  ggplot(aes(x = section, y = int_section_mean, color = condition)) + geom_pointrange(aes(ymin=int_section_mean-int_section_sd, ymax=int_section_mean+int_section_sd), position = position_dodge(width = 0.6)) + theme_classic(base_size = 20) + scale_colour_colorblind() + labs(x = "distance from nucleus", y = "actin density") + theme(legend.position = c(0.22, 0.175), legend.direction = "vertical") + 
+  annotate(geom = "text", x = c(1,2,3,4,5,6,7,8,9), y = 0.89, label="***", color = "#E69F00", size = 8) + 
+  annotate(geom = "text", x = c(1,2), y = 0.87, label="***", color = "#56B4E9", size = 8) + 
+  annotate(geom = "text", x = c(7), y = 0.87, label="*", color = "#56B4E9", size = 8) + 
+  annotate(geom = "text", x = c(1,2,3,4,5,6,7,8,9,10), y = 0.85, label="***", color = "#F0E442", size = 8) 
 
-# follistatin results
-plot_conditions <- included_conditions[c(3,5,7)]
-results_sect %>% filter(condition %in% plot_conditions) %>% group_by(condition, section) %>% mutate(int_section_mean = mean(section_mean), int_section_sd = sd(section_mean)) %>%  ggplot(aes(x = section, y = int_section_mean, color = condition)) + geom_pointrange(aes(ymin=int_section_mean-int_section_sd, ymax=int_section_mean+int_section_sd), position = position_dodge(width = 0.6)) + theme_classic(base_size = 20) + scale_colour_colorblind() + labs(x = "distance from nucleus", y = "mitochondria fluorescence") + theme(legend.position = c(0.22, 0.175), legend.direction = "vertical")
+rm(list=setdiff(ls(), c("condition_lookup", "data_actin", "data_mito", "which_image", "sample_sizes", "all_results_mito", "all_results_actin", "included_conditions")))
+```
+
+Cultures treated with Activin A for 2 days contain a reduced somatic actin density. This effect recedes to no changes after 4 days and 10 days of treatment and reappears after 14 days.
+
+### No relevant effect of follistatin on actin density
+
+```{r comparison_actin_under_follistatin, echo = F, message = F, warning = F, results='hide',fig.keep='all', fig.width= 17 , fig.height = 20, fig.cap="Statistical comparison of actin density in follistatin treated cultures"}
+
+# statistical comparison within each section
+
+#descriptive stats
+descriptive_statistics <- all_results_actin$results_sect %>% group_by(section, condition) %>% summarize(mean = mean(section_mean, na.rm = T), sd = sd(section_mean, na.rm = T))
+
+reference_condition <- 8 ############################ input here: which condition is the reference condition
+plot_conditions <- included_conditions[c(5,10,7,8)] #### input here: which conditions are part of the comparison
+section_plots <- list()
+section_stats <- list()
+pvalues_df <- list()
+n_sig <- matrix(NA, 10,1)
+stats_data_all_sections <- all_results_actin$results_sect  %>% filter(condition %in% plot_conditions) %>% mutate(condition = factor(condition))
+stats_data_all_sections$condition <- factor(stats_data_all_sections$condition, included_conditions[c(8,5,10,7)]) #### input here: specify order of conditions in the plot - make sure to put the reference condition first!
+for (selected_section in 1:10) {
+stats_data <- stats_data_all_sections %>% filter(section == selected_section)
+
+res_aov <- aov(section_mean ~ condition, data = stats_data)
+summary(res_aov)
+post_test <- glht(res_aov, linfct = mcp(condition = "Dunnett"))
+stats_sum <- tidy(summary(post_test))
+stats_sum <- stats_sum %>% mutate(condition = str_extract(contrast, ".+(?=\\s-)"), sig = adj.p.value <= 0.05)
+n_sig[selected_section] <- sum(stats_sum$sig)
+section_stats[[selected_section]] <- stats_sum
+
+if (n_sig[selected_section] > 0) {
+  # gather p value information
+pvalues_df[[selected_section]] <- data.frame(group1 = matrix(included_conditions[reference_condition],n_sig[selected_section],1), group2 = stats_sum$condition[stats_sum$sig], label = format(stats_sum$adj.p.value[stats_sum$sig], digits = 3), y.position = seq(from = max(stats_data$section_mean) + 0.075, by = 0.075, length.out = n_sig[selected_section]))
+  # plot including p values
+section_plots[[selected_section]] <- stats_data %>% ggplot(aes(x = condition, y = section_mean)) + geom_boxplot() + add_pvalue(pvalues_df[[selected_section]], xmin = "group1", xmax = "group2", label = "label", y.position = "y.position") + labs(title = paste("Section", selected_section)) + scale_x_discrete(guide = guide_axis(n.dodge = 3)) + scale_y_continuous(limits = c(0,1.3))
+} else {
+  # plot without p values
+  section_plots[[selected_section]] <- stats_data %>% ggplot(aes(x = condition, y = section_mean)) + geom_boxplot() + labs(title = paste("Section", selected_section)) + scale_x_discrete(guide = guide_axis(n.dodge = 3)) + scale_y_continuous(limits = c(0,1.3))
+}
+}
+
+# arrange plots of separate sections
+plot_grid(section_plots[[1]], section_plots[[2]], section_plots[[3]], section_plots[[4]], section_plots[[5]], section_plots[[6]], section_plots[[7]], section_plots[[8]], section_plots[[9]], section_plots[[10]], ncol = 2)
+
 
 ```
 
-## Next steps
+ 
 
-1. Imaging of all remaining samples (currently about 50% imaged and about 30% are analyzed)
+```{r actin_in_follistatin, echo = F, message = F, warning = F, results='hide',fig.keep='all', fig.width= 10 , fig.height = 7, fig.cap="Actin density in the soma of follistatin treated cultures"}
 
-2. Treatment and staining of alcohol conditions
+stats_data_all_sections %>% group_by(condition, section) %>% mutate(int_section_mean = mean(section_mean), int_section_sd = sd(section_mean)) %>%  ggplot(aes(x = section, y = int_section_mean, color = condition)) + geom_pointrange(aes(ymin=int_section_mean-int_section_sd, ymax=int_section_mean+int_section_sd), position = position_dodge(width = 0.6)) + theme_classic(base_size = 20) + scale_colour_colorblind() + labs(x = "distance from nucleus", y = "actin density") + theme(legend.position = c(0.22, 0.175), legend.direction = "vertical") + 
+  annotate(geom = "text", x = c(1,2), y = 0.89, label="***", color = "#E69F00", size = 8) +
+  annotate(geom = "text", x = c(3,5), y = 0.89, label="**", color = "#E69F00", size = 8) +
+  annotate(geom = "text", x = c(10), y = 0.87, label="***", color = "#56B4E9", size = 8) + 
+  annotate(geom = "text", x = c(8), y = 0.87, label="**", color = "#56B4E9", size = 8) + 
+  annotate(geom = "text", x = c(2,9), y = 0.85, label="***", color = "#009E73", size = 8) +
+  annotate(geom = "text", x = c(4,5), y = 0.85, label="*", color = "#009E73", size = 8)
 
-3. More detailed statistical analysis
+rm(list=setdiff(ls(), c("condition_lookup", "data_actin", "data_mito", "which_image", "sample_sizes", "all_results_mito", "all_results_actin", "included_conditions")))
+```
+
+Although statistically significant, effect sizes are minimal and thus, cultures treated with follistatin up to 14 days show no noteworthy effects of the treatment on somatic actin density. 
+
+### Inconclusive results of actin density in SMIFH2 treated cultures
+
+```{r comparison_actin_under_SMIFH2, echo = F, message = F, warning = F, results='hide',fig.keep='all', fig.width= 17 , fig.height = 20, fig.cap="Statistical comparison of actin density in SMIFH2 treated cultures"}
+
+# statistical comparison within each section
+
+#descriptive stats
+descriptive_statistics <- all_results_actin$results_sect %>% group_by(section, condition) %>% summarize(mean = mean(section_mean, na.rm = T), sd = sd(section_mean, na.rm = T))
+
+reference_condition <- 8 ############################ input here: which condition is the reference condition
+plot_conditions <- included_conditions[c(8,16,9,6)] #### input here: which conditions are part of the comparison
+section_plots <- list()
+section_stats <- list()
+pvalues_df <- list()
+n_sig <- matrix(NA, 10,1)
+stats_data_all_sections <- all_results_actin$results_sect  %>% filter(condition %in% plot_conditions) %>% mutate(condition = factor(condition))
+stats_data_all_sections$condition <- factor(stats_data_all_sections$condition, included_conditions[c(8,16,9,6)]) #### input here: specify order of conditions in the plot - make sure to put the reference condition first!
+for (selected_section in 1:10) {
+stats_data <- stats_data_all_sections %>% filter(section == selected_section)
+
+res_aov <- aov(section_mean ~ condition, data = stats_data)
+summary(res_aov)
+post_test <- glht(res_aov, linfct = mcp(condition = "Dunnett"))
+stats_sum <- tidy(summary(post_test))
+stats_sum <- stats_sum %>% mutate(condition = str_extract(contrast, ".+(?=\\s-)"), sig = adj.p.value <= 0.05)
+n_sig[selected_section] <- sum(stats_sum$sig)
+section_stats[[selected_section]] <- stats_sum
+
+if (n_sig[selected_section] > 0) {
+  # gather p value information
+pvalues_df[[selected_section]] <- data.frame(group1 = matrix(included_conditions[reference_condition],n_sig[selected_section],1), group2 = stats_sum$condition[stats_sum$sig], label = format(stats_sum$adj.p.value[stats_sum$sig], digits = 3), y.position = seq(from = max(stats_data$section_mean) + 0.075, by = 0.075, length.out = n_sig[selected_section]))
+  # plot including p values
+section_plots[[selected_section]] <- stats_data %>% ggplot(aes(x = condition, y = section_mean)) + geom_boxplot() + add_pvalue(pvalues_df[[selected_section]], xmin = "group1", xmax = "group2", label = "label", y.position = "y.position") + labs(title = paste("Section", selected_section)) + scale_x_discrete(guide = guide_axis(n.dodge = 3)) + scale_y_continuous(limits = c(0,1.3))
+} else {
+  # plot without p values
+  section_plots[[selected_section]] <- stats_data %>% ggplot(aes(x = condition, y = section_mean)) + geom_boxplot() + labs(title = paste("Section", selected_section)) + scale_x_discrete(guide = guide_axis(n.dodge = 3)) + scale_y_continuous(limits = c(0,1.3))
+}
+}
+
+# arrange plots of separate sections
+plot_grid(section_plots[[1]], section_plots[[2]], section_plots[[3]], section_plots[[4]], section_plots[[5]], section_plots[[6]], section_plots[[7]], section_plots[[8]], section_plots[[9]], section_plots[[10]], ncol = 2)
+
+
+```
+
+ 
+
+```{r actin_in_SMIFH2, echo = F, message = F, warning = F, results='hide',fig.keep='all', fig.width= 10 , fig.height = 7, fig.cap="Actin density in the soma of SMIFH2 treated cultures"}
+
+stats_data_all_sections %>% group_by(condition, section) %>% mutate(int_section_mean = mean(section_mean), int_section_sd = sd(section_mean)) %>%  ggplot(aes(x = section, y = int_section_mean, color = condition)) + geom_pointrange(aes(ymin=int_section_mean-int_section_sd, ymax=int_section_mean+int_section_sd), position = position_dodge(width = 0.6)) + theme_classic(base_size = 20) + scale_colour_colorblind() + labs(x = "distance from nucleus", y = "actin density") + theme(legend.position = c(0.22, 0.175), legend.direction = "vertical") + 
+  annotate(geom = "text", x = c(1,2,3,4,5,6,7,8), y = 1.04, label="***", color = "#E69F00", size = 8) +
+  annotate(geom = "text", x = c(4,5,9), y = 1.02, label="***", color = "#56B4E9", size = 8) + 
+  annotate(geom = "text", x = c(3), y = 1.02, label="**", color = "#56B4E9", size = 8) + 
+  annotate(geom = "text", x = c(2,6,10), y = 1.02, label="*", color = "#56B4E9", size = 8) + 
+  annotate(geom = "text", x = c(1), y = 1, label="**", color = "#009E73", size = 8)
+
+rm(list=setdiff(ls(), c("condition_lookup", "data_actin", "data_mito", "which_image", "sample_sizes", "all_results_mito", "all_results_actin", "included_conditions")))
+```
+
+As the sample size for SMIFH2 treated cultures is very low, the results here seem inconclusive. As SMIFH2 inhibits actin polymerization (Phalloidin Red only binds to polymerized actin), a decrease of actin density is expected but not apparent in the data.
+
+### No relevant effect of Ethanol treatment (5min, 30mM) on somatic actin density
+
+```{r comparison_actin_under_ethanol, echo = F, message = F, warning = F, results='hide',fig.keep='all', fig.width= 17 , fig.height = 20, fig.cap="Statistical comparison of actin density in ethanol treated cultures"}
+
+# statistical comparison within each section
+
+#descriptive stats
+descriptive_statistics <- all_results_actin$results_sect %>% group_by(section, condition) %>% summarize(mean = mean(section_mean, na.rm = T), sd = sd(section_mean, na.rm = T))
+
+reference_condition <- 15 ############################ input here: which condition is the reference condition
+plot_conditions <- included_conditions[c(15,13)] #### input here: which conditions are part of the comparison
+section_plots <- list()
+section_stats <- list()
+pvalues_df <- list()
+n_sig <- matrix(NA, 10,1)
+stats_data_all_sections <- all_results_actin$results_sect  %>% filter(condition %in% plot_conditions) %>% mutate(condition = factor(condition))
+stats_data_all_sections$condition <- factor(stats_data_all_sections$condition, included_conditions[c(15,13)]) #### input here: specify order of conditions in the plot - make sure to put the reference condition first!
+for (selected_section in 1:10) {
+stats_data <- stats_data_all_sections %>% filter(section == selected_section)
+
+res_aov <- aov(section_mean ~ condition, data = stats_data)
+summary(res_aov)
+post_test <- glht(res_aov, linfct = mcp(condition = "Dunnett"))
+stats_sum <- tidy(summary(post_test))
+stats_sum <- stats_sum %>% mutate(condition = str_extract(contrast, ".+(?=\\s-)"), sig = adj.p.value <= 0.05)
+n_sig[selected_section] <- sum(stats_sum$sig)
+section_stats[[selected_section]] <- stats_sum
+
+if (n_sig[selected_section] > 0) {
+  # gather p value information
+pvalues_df[[selected_section]] <- data.frame(group1 = matrix(included_conditions[reference_condition],n_sig[selected_section],1), group2 = stats_sum$condition[stats_sum$sig], label = format(stats_sum$adj.p.value[stats_sum$sig], digits = 3), y.position = seq(from = max(stats_data$section_mean) + 0.075, by = 0.075, length.out = n_sig[selected_section]))
+  # plot including p values
+section_plots[[selected_section]] <- stats_data %>% ggplot(aes(x = condition, y = section_mean)) + geom_boxplot() + add_pvalue(pvalues_df[[selected_section]], xmin = "group1", xmax = "group2", label = "label", y.position = "y.position") + labs(title = paste("Section", selected_section)) + scale_x_discrete(guide = guide_axis(n.dodge = 3)) + scale_y_continuous(limits = c(0,1.3))
+} else {
+  # plot without p values
+  section_plots[[selected_section]] <- stats_data %>% ggplot(aes(x = condition, y = section_mean)) + geom_boxplot() + labs(title = paste("Section", selected_section)) + scale_x_discrete(guide = guide_axis(n.dodge = 3)) + scale_y_continuous(limits = c(0,1.3))
+}
+}
+
+# arrange plots of separate sections
+plot_grid(section_plots[[1]], section_plots[[2]], section_plots[[3]], section_plots[[4]], section_plots[[5]], section_plots[[6]], section_plots[[7]], section_plots[[8]], section_plots[[9]], section_plots[[10]], ncol = 2)
+
+
+```
+
+ 
+
+```{r actin_in_ethanol, echo = F, message = F, warning = F, results='hide',fig.keep='all', fig.width= 10 , fig.height = 7, fig.cap="Actin density in the soma of ethanol treated cultures"}
+
+stats_data_all_sections %>% group_by(condition, section) %>% mutate(int_section_mean = mean(section_mean), int_section_sd = sd(section_mean)) %>%  ggplot(aes(x = section, y = int_section_mean, color = condition)) + geom_pointrange(aes(ymin=int_section_mean-int_section_sd, ymax=int_section_mean+int_section_sd), position = position_dodge(width = 0.6)) + theme_classic(base_size = 20) + scale_colour_colorblind() + labs(x = "distance from nucleus", y = "actin density") + theme(legend.position = c(0.22, 0.175), legend.direction = "vertical") + 
+  annotate(geom = "text", x = c(1,7,8,10), y = 0.9, label="***", color = "#E69F00", size = 8) +
+  annotate(geom = "text", x = c(6,9), y = 0.9, label="**", color = "#E69F00", size = 8) +
+  annotate(geom = "text", x = c(3), y = 0.9, label="*", color = "#E69F00", size = 8)
+
+
+#rm(list=setdiff(ls(), c("condition_lookup", "data_actin", "data_mito", "which_image", "sample_sizes", "all_results_mito", "all_results_actin", "included_conditions")))
+```
+
+Although statistically significant, the effect sizes are marginal and thus, 5min Ethanol treatment (30mM) has no relevant effect on somatic actin density.
 
 ## References
 
