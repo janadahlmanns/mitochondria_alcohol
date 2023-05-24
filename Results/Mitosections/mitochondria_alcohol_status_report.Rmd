@@ -538,6 +538,259 @@ stats_data_all_sections %>% group_by(condition, section) %>% mutate(int_section_
 
 Although statistically significant, the effect sizes are marginal and thus, 5min Ethanol treatment (30mM) has no relevant effect on somatic actin density.
 
+### Activin A might shift somatic mitochondria distribution towards the nucleus
+
+```{r comparison_mitochondria_under_activin, echo = F, message = F, warning = F, results='hide',fig.keep='all', fig.width= 17 , fig.height = 20, fig.cap="Statistical comparison of mitochondria distribution in Activin A treated cultures"}
+
+# statistical comparison within each section
+
+#descriptive stats
+descriptive_statistics <- all_results_mito$results_sect %>% group_by(section, condition) %>% summarize(mean = mean(section_mean, na.rm = T), sd = sd(section_mean, na.rm = T))
+
+reference_condition <- 8 ############################ input here: which condition is the reference condition
+plot_conditions <- included_conditions[c(8,1,12,11,2)] #### input here: which conditions are part of the comparison
+section_plots <- list()
+section_stats <- list()
+pvalues_df <- list()
+n_sig <- matrix(NA, 10,1)
+stats_data_all_sections <- all_results_mito$results_sect  %>% filter(condition %in% plot_conditions) %>% mutate(condition = factor(condition))
+stats_data_all_sections$condition <- factor(stats_data_all_sections$condition, included_conditions[c(8,1,12,11,2)]) #### input here: specify order of conditions in the plot - make sure to put the reference condition first!
+for (selected_section in 1:10) {
+stats_data <- stats_data_all_sections %>% filter(section == selected_section)
+
+res_aov <- aov(section_mean ~ condition, data = stats_data)
+summary(res_aov)
+post_test <- glht(res_aov, linfct = mcp(condition = "Dunnett"))
+stats_sum <- tidy(summary(post_test))
+stats_sum <- stats_sum %>% mutate(condition = str_extract(contrast, ".+(?=\\s-)"), sig = adj.p.value <= 0.05)
+n_sig[selected_section] <- sum(stats_sum$sig)
+section_stats[[selected_section]] <- stats_sum
+
+if (n_sig[selected_section] > 0) {
+  # gather p value information
+pvalues_df[[selected_section]] <- data.frame(group1 = matrix(included_conditions[reference_condition],n_sig[selected_section],1), group2 = stats_sum$condition[stats_sum$sig], label = format(stats_sum$adj.p.value[stats_sum$sig], digits = 3), y.position = seq(from = max(stats_data$section_mean) + 0.075, by = 0.075, length.out = n_sig[selected_section]))
+  # plot including p values
+section_plots[[selected_section]] <- stats_data %>% ggplot(aes(x = condition, y = section_mean)) + geom_boxplot() + add_pvalue(pvalues_df[[selected_section]], xmin = "group1", xmax = "group2", label = "label", y.position = "y.position") + labs(title = paste("Section", selected_section)) + scale_x_discrete(guide = guide_axis(n.dodge = 3)) + scale_y_continuous(limits = c(0,1.3))
+} else {
+  # plot without p values
+  section_plots[[selected_section]] <- stats_data %>% ggplot(aes(x = condition, y = section_mean)) + geom_boxplot() + labs(title = paste("Section", selected_section)) + scale_x_discrete(guide = guide_axis(n.dodge = 3)) + scale_y_continuous(limits = c(0,1.3))
+}
+}
+
+# arrange plots of separate sections
+plot_grid(section_plots[[1]], section_plots[[2]], section_plots[[3]], section_plots[[4]], section_plots[[5]], section_plots[[6]], section_plots[[7]], section_plots[[8]], section_plots[[9]], section_plots[[10]], ncol = 2)
+
+
+```
+
+ 
+
+```{r mitochondria_in_activin, echo = F, message = F, warning = F, results='hide',fig.keep='all', fig.width= 10 , fig.height = 7, fig.cap="Mitochondria population in the soma of Activin A treated cultures"}
+
+stats_data_all_sections %>% group_by(condition, section) %>% mutate(int_section_mean = mean(section_mean), int_section_sd = sd(section_mean)) %>%  ggplot(aes(x = section, y = int_section_mean, color = condition)) + geom_pointrange(aes(ymin=int_section_mean-int_section_sd, ymax=int_section_mean+int_section_sd), position = position_dodge(width = 0.6)) + theme_classic(base_size = 20) + scale_colour_colorblind() + labs(x = "distance from nucleus", y = "mitochondria population") + theme(legend.position = c(0.22, 0.175), legend.direction = "vertical") + 
+  annotate(geom = "text", x = c(1,2,7,8,9), y = 0.86, label="***", color = "#E69F00", size = 8) +
+  annotate(geom = "text", x = c(6), y = 0.86, label="*", color = "#E69F00", size = 8) + 
+  annotate(geom = "text", x = c(1,6), y = 0.84, label="***", color = "#56B4E9", size = 8) +
+  annotate(geom = "text", x = c(4,5), y = 0.84, label="*", color = "#56B4E9", size = 8) + 
+  annotate(geom = "text", x = c(2), y = 0.82, label="***", color = "#009E73", size = 8) +
+  annotate(geom = "text", x = c(3), y = 0.82, label="**", color = "#009E73", size = 8) +
+  annotate(geom = "text", x = c(1), y = 0.82, label="*", color = "#009E73", size = 8) + 
+  annotate(geom = "text", x = c(1,2,3,7,8,9,10), y = 0.8, label="***", color = "#F0E442", size = 8) +
+  annotate(geom = "text", x = c(4), y = 0.8, label="*", color = "#F0E442", size = 8)
+
+
+#rm(list=setdiff(ls(), c("condition_lookup", "data_actin", "data_mito", "which_image", "sample_sizes", "all_results_mito", "all_results_actin", "included_conditions")))
+```
+
+As the actin filaments, somatic mitochondria population is affected by Activin A treatment after 2 days and 14 days, but not after 4days and 10 days. The somatic mitochondria population seems to be pulled closer to the nucleus after Activin A treatment - the mitochondria density is increased near the nucleus (sections 1-3) and decreased in the distal sections (sections 8-10). These results might arise from increased mitochondria formation near the nucleus and/ or abandoned mitochondria maintenance and dissolution in the distal soma.
+
+### Effect of follistatin on mitochondria
+
+```{r comparison_mitochondria_under_follistatin, echo = F, message = F, warning = F, results='hide',fig.keep='all', fig.width= 17 , fig.height = 20, fig.cap="Statistical comparison of mitochondria distribution in follistatin treated cultures"}
+
+# statistical comparison within each section
+
+#descriptive stats
+descriptive_statistics <- all_results_mito$results_sect %>% group_by(section, condition) %>% summarize(mean = mean(section_mean, na.rm = T), sd = sd(section_mean, na.rm = T))
+
+reference_condition <- 8 ############################ input here: which condition is the reference condition
+plot_conditions <- included_conditions[c(8,5,10,7)] #### input here: which conditions are part of the comparison
+section_plots <- list()
+section_stats <- list()
+pvalues_df <- list()
+n_sig <- matrix(NA, 10,1)
+stats_data_all_sections <- all_results_mito$results_sect  %>% filter(condition %in% plot_conditions) %>% mutate(condition = factor(condition))
+stats_data_all_sections$condition <- factor(stats_data_all_sections$condition, included_conditions[c(8,5,10,7)]) #### input here: specify order of conditions in the plot - make sure to put the reference condition first!
+for (selected_section in 1:10) {
+stats_data <- stats_data_all_sections %>% filter(section == selected_section)
+
+res_aov <- aov(section_mean ~ condition, data = stats_data)
+summary(res_aov)
+post_test <- glht(res_aov, linfct = mcp(condition = "Dunnett"))
+stats_sum <- tidy(summary(post_test))
+stats_sum <- stats_sum %>% mutate(condition = str_extract(contrast, ".+(?=\\s-)"), sig = adj.p.value <= 0.05)
+n_sig[selected_section] <- sum(stats_sum$sig)
+section_stats[[selected_section]] <- stats_sum
+
+if (n_sig[selected_section] > 0) {
+  # gather p value information
+pvalues_df[[selected_section]] <- data.frame(group1 = matrix(included_conditions[reference_condition],n_sig[selected_section],1), group2 = stats_sum$condition[stats_sum$sig], label = format(stats_sum$adj.p.value[stats_sum$sig], digits = 3), y.position = seq(from = max(stats_data$section_mean) + 0.075, by = 0.075, length.out = n_sig[selected_section]))
+  # plot including p values
+section_plots[[selected_section]] <- stats_data %>% ggplot(aes(x = condition, y = section_mean)) + geom_boxplot() + add_pvalue(pvalues_df[[selected_section]], xmin = "group1", xmax = "group2", label = "label", y.position = "y.position") + labs(title = paste("Section", selected_section)) + scale_x_discrete(guide = guide_axis(n.dodge = 3)) + scale_y_continuous(limits = c(0,1.3))
+} else {
+  # plot without p values
+  section_plots[[selected_section]] <- stats_data %>% ggplot(aes(x = condition, y = section_mean)) + geom_boxplot() + labs(title = paste("Section", selected_section)) + scale_x_discrete(guide = guide_axis(n.dodge = 3)) + scale_y_continuous(limits = c(0,1.3))
+}
+}
+
+# arrange plots of separate sections
+plot_grid(section_plots[[1]], section_plots[[2]], section_plots[[3]], section_plots[[4]], section_plots[[5]], section_plots[[6]], section_plots[[7]], section_plots[[8]], section_plots[[9]], section_plots[[10]], ncol = 2)
+
+
+```
+
+ 
+
+```{r mitochondria_in_follistatin, echo = F, message = F, warning = F, results='hide',fig.keep='all', fig.width= 10 , fig.height = 7, fig.cap="Mitochondria population in the soma of follistatin treated cultures"}
+
+stats_data_all_sections %>% group_by(condition, section) %>% mutate(int_section_mean = mean(section_mean), int_section_sd = sd(section_mean)) %>%  ggplot(aes(x = section, y = int_section_mean, color = condition)) + geom_pointrange(aes(ymin=int_section_mean-int_section_sd, ymax=int_section_mean+int_section_sd), position = position_dodge(width = 0.6)) + theme_classic(base_size = 20) + scale_colour_colorblind() + labs(x = "distance from nucleus", y = "mitochondria population") + theme(legend.position = c(0.22, 0.175), legend.direction = "vertical") + 
+  annotate(geom = "text", x = c(1,2,3,4,5,6,10), y = 0.86, label="***", color = "#E69F00", size = 8) +
+  annotate(geom = "text", x = c(7,8), y = 0.86, label="**", color = "#E69F00", size = 8) + 
+  annotate(geom = "text", x = c(1,6,8), y = 0.84, label="***", color = "#56B4E9", size = 8) +
+  annotate(geom = "text", x = c(2,3,4), y = 0.84, label="**", color = "#56B4E9", size = 8) +
+  annotate(geom = "text", x = c(10), y = 0.84, label="*", color = "#56B4E9", size = 8) + 
+  annotate(geom = "text", x = c(1,6), y = 0.82, label="***", color = "#009E73", size = 8) +
+  annotate(geom = "text", x = c(4), y = 0.82, label="**", color = "#009E73", size = 8) +
+  annotate(geom = "text", x = c(5), y = 0.82, label="*", color = "#009E73", size = 8)
+
+
+#rm(list=setdiff(ls(), c("condition_lookup", "data_actin", "data_mito", "which_image", "sample_sizes", "all_results_mito", "all_results_actin", "included_conditions")))
+```
+
+The somatic mitochondria population is increased after treatment with follistatin for 7, 10 and 14 days.
+
+### Effect of SMIFH2 on mitochondria
+
+```{r comparison_mitochondria_under_SMIFH2, echo = F, message = F, warning = F, results='hide',fig.keep='all', fig.width= 17 , fig.height = 20, fig.cap="Statistical comparison of mitochondria distribution in SMIFH2 treated cultures"}
+
+# statistical comparison within each section
+
+#descriptive stats
+descriptive_statistics <- all_results_mito$results_sect %>% group_by(section, condition) %>% summarize(mean = mean(section_mean, na.rm = T), sd = sd(section_mean, na.rm = T))
+
+reference_condition <- 8 ############################ input here: which condition is the reference condition
+plot_conditions <- included_conditions[c(8,16,9,6)] #### input here: which conditions are part of the comparison
+section_plots <- list()
+section_stats <- list()
+pvalues_df <- list()
+n_sig <- matrix(NA, 10,1)
+stats_data_all_sections <- all_results_mito$results_sect  %>% filter(condition %in% plot_conditions) %>% mutate(condition = factor(condition))
+stats_data_all_sections$condition <- factor(stats_data_all_sections$condition, included_conditions[c(8,16,9,6)]) #### input here: specify order of conditions in the plot - make sure to put the reference condition first!
+for (selected_section in 1:10) {
+stats_data <- stats_data_all_sections %>% filter(section == selected_section)
+
+res_aov <- aov(section_mean ~ condition, data = stats_data)
+summary(res_aov)
+post_test <- glht(res_aov, linfct = mcp(condition = "Dunnett"))
+stats_sum <- tidy(summary(post_test))
+stats_sum <- stats_sum %>% mutate(condition = str_extract(contrast, ".+(?=\\s-)"), sig = adj.p.value <= 0.05)
+n_sig[selected_section] <- sum(stats_sum$sig)
+section_stats[[selected_section]] <- stats_sum
+
+if (n_sig[selected_section] > 0) {
+  # gather p value information
+pvalues_df[[selected_section]] <- data.frame(group1 = matrix(included_conditions[reference_condition],n_sig[selected_section],1), group2 = stats_sum$condition[stats_sum$sig], label = format(stats_sum$adj.p.value[stats_sum$sig], digits = 3), y.position = seq(from = max(stats_data$section_mean) + 0.075, by = 0.075, length.out = n_sig[selected_section]))
+  # plot including p values
+section_plots[[selected_section]] <- stats_data %>% ggplot(aes(x = condition, y = section_mean)) + geom_boxplot() + add_pvalue(pvalues_df[[selected_section]], xmin = "group1", xmax = "group2", label = "label", y.position = "y.position") + labs(title = paste("Section", selected_section)) + scale_x_discrete(guide = guide_axis(n.dodge = 3)) + scale_y_continuous(limits = c(0,1.3))
+} else {
+  # plot without p values
+  section_plots[[selected_section]] <- stats_data %>% ggplot(aes(x = condition, y = section_mean)) + geom_boxplot() + labs(title = paste("Section", selected_section)) + scale_x_discrete(guide = guide_axis(n.dodge = 3)) + scale_y_continuous(limits = c(0,1.3))
+}
+}
+
+# arrange plots of separate sections
+plot_grid(section_plots[[1]], section_plots[[2]], section_plots[[3]], section_plots[[4]], section_plots[[5]], section_plots[[6]], section_plots[[7]], section_plots[[8]], section_plots[[9]], section_plots[[10]], ncol = 2)
+
+
+```
+
+ 
+
+```{r mitochondria_in_SMIFH2, echo = F, message = F, warning = F, results='hide',fig.keep='all', fig.width= 10 , fig.height = 7, fig.cap="Mitochondria population in the soma of SMIFH2 treated cultures"}
+
+stats_data_all_sections %>% group_by(condition, section) %>% mutate(int_section_mean = mean(section_mean), int_section_sd = sd(section_mean)) %>%  ggplot(aes(x = section, y = int_section_mean, color = condition)) + geom_pointrange(aes(ymin=int_section_mean-int_section_sd, ymax=int_section_mean+int_section_sd), position = position_dodge(width = 0.6)) + theme_classic(base_size = 20) + scale_colour_colorblind() + labs(x = "distance from nucleus", y = "mitochondria population") + theme(legend.position = c(0.22, 0.175), legend.direction = "vertical") + 
+  annotate(geom = "text", x = c(2,8), y = 0.86, label="***", color = "#E69F00", size = 8) +
+  annotate(geom = "text", x = c(1,3,6,9), y = 0.86, label="*", color = "#E69F00", size = 8) + 
+  annotate(geom = "text", x = c(9), y = 0.84, label="**", color = "#56B4E9", size = 8) +
+  annotate(geom = "text", x = c(1,2,4,5,6), y = 0.82, label="***", color = "#009E73", size = 8) +
+  annotate(geom = "text", x = c(3,7,8), y = 0.82, label="**", color = "#009E73", size = 8) 
+
+
+#rm(list=setdiff(ls(), c("condition_lookup", "data_actin", "data_mito", "which_image", "sample_sizes", "all_results_mito", "all_results_actin", "included_conditions")))
+```
+
+Although the sample size is still low, it seems that in the long-term, after 14 days of treatment with SMIFH2, the mitochondria density in the neuronal soma is increased. This might be due to a reduced export into neurites.
+
+### Effect of ethanol on mitochondria
+
+```{r comparison_mitochondria_under_ethanol, echo = F, message = F, warning = F, results='hide',fig.keep='all', fig.width= 17 , fig.height = 20, fig.cap="Statistical comparison of mitochondria distribution in ethanol treated cultures"}
+
+# statistical comparison within each section
+
+#descriptive stats
+descriptive_statistics <- all_results_mito$results_sect %>% group_by(section, condition) %>% summarize(mean = mean(section_mean, na.rm = T), sd = sd(section_mean, na.rm = T))
+
+reference_condition <- 15 ############################ input here: which condition is the reference condition
+plot_conditions <- included_conditions[c(15,13)] #### input here: which conditions are part of the comparison
+section_plots <- list()
+section_stats <- list()
+pvalues_df <- list()
+n_sig <- matrix(NA, 10,1)
+stats_data_all_sections <- all_results_mito$results_sect  %>% filter(condition %in% plot_conditions) %>% mutate(condition = factor(condition))
+stats_data_all_sections$condition <- factor(stats_data_all_sections$condition, included_conditions[c(15,13)]) #### input here: specify order of conditions in the plot - make sure to put the reference condition first!
+for (selected_section in 1:10) {
+stats_data <- stats_data_all_sections %>% filter(section == selected_section)
+
+res_aov <- aov(section_mean ~ condition, data = stats_data)
+summary(res_aov)
+post_test <- glht(res_aov, linfct = mcp(condition = "Dunnett"))
+stats_sum <- tidy(summary(post_test))
+stats_sum <- stats_sum %>% mutate(condition = str_extract(contrast, ".+(?=\\s-)"), sig = adj.p.value <= 0.05)
+n_sig[selected_section] <- sum(stats_sum$sig)
+section_stats[[selected_section]] <- stats_sum
+
+if (n_sig[selected_section] > 0) {
+  # gather p value information
+pvalues_df[[selected_section]] <- data.frame(group1 = matrix(included_conditions[reference_condition],n_sig[selected_section],1), group2 = stats_sum$condition[stats_sum$sig], label = format(stats_sum$adj.p.value[stats_sum$sig], digits = 3), y.position = seq(from = max(stats_data$section_mean) + 0.075, by = 0.075, length.out = n_sig[selected_section]))
+  # plot including p values
+section_plots[[selected_section]] <- stats_data %>% ggplot(aes(x = condition, y = section_mean)) + geom_boxplot() + add_pvalue(pvalues_df[[selected_section]], xmin = "group1", xmax = "group2", label = "label", y.position = "y.position") + labs(title = paste("Section", selected_section)) + scale_x_discrete(guide = guide_axis(n.dodge = 3)) + scale_y_continuous(limits = c(0,1.3))
+} else {
+  # plot without p values
+  section_plots[[selected_section]] <- stats_data %>% ggplot(aes(x = condition, y = section_mean)) + geom_boxplot() + labs(title = paste("Section", selected_section)) + scale_x_discrete(guide = guide_axis(n.dodge = 3)) + scale_y_continuous(limits = c(0,1.3))
+}
+}
+
+# arrange plots of separate sections
+plot_grid(section_plots[[1]], section_plots[[2]], section_plots[[3]], section_plots[[4]], section_plots[[5]], section_plots[[6]], section_plots[[7]], section_plots[[8]], section_plots[[9]], section_plots[[10]], ncol = 2)
+
+
+```
+
+ 
+
+```{r mitochondria_in_ethanol, echo = F, message = F, warning = F, results='hide',fig.keep='all', fig.width= 10 , fig.height = 7, fig.cap="Mitochondria population in the soma of ethanol treated cultures"}
+
+stats_data_all_sections %>% group_by(condition, section) %>% mutate(int_section_mean = mean(section_mean), int_section_sd = sd(section_mean)) %>%  ggplot(aes(x = section, y = int_section_mean, color = condition)) + geom_pointrange(aes(ymin=int_section_mean-int_section_sd, ymax=int_section_mean+int_section_sd), position = position_dodge(width = 0.6)) + theme_classic(base_size = 20) + scale_colour_colorblind() + labs(x = "distance from nucleus", y = "mitochondria population") + theme(legend.position = c(0.22, 0.175), legend.direction = "vertical") + 
+  annotate(geom = "text", x = c(6,7,8), y = 0.7, label="***", color = "#E69F00", size = 8) +
+  annotate(geom = "text", x = c(10), y = 0.7, label="**", color = "#E69F00", size = 8) +
+  annotate(geom = "text", x = c(4), y = 0.7, label="*", color = "#E69F00", size = 8) 
+
+
+rm(list=setdiff(ls(), c("condition_lookup", "data_actin", "data_mito", "which_image", "sample_sizes", "all_results_mito", "all_results_actin", "included_conditions")))
+```
+
+Ethanol might lead to a distal reducing of somatic mitochondria density. More experiments are required.
+
 ## References
 
 <div id="refs"></div>
