@@ -1,0 +1,308 @@
+---
+title: "Analysis of Mitochondria distribution along sections through neuronal soma"
+author: "Dr. Jana Dahlmanns"
+subtitle: "Status report"
+date: "`r Sys.Date()`"
+output:
+  word_document:
+    reference_docx: reference_doc.docx
+  pdf_document: default
+header-includes:
+- \usepackage{helvet}
+- \renewcommand{\familydefault}{\sfdefault}
+extra_dependencies: float
+fig_caption: yes
+bibliography: "`r rbbt::bbt_write_bib('bibliography.bib', overwrite = TRUE)`" 
+csl: "elsevier-vancouver.csl"
+---
+```{r change_wd, include = F}
+setwd(getSrcDirectory(function(){})[1])
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.pos = "H", out.extra = "")
+library(tidyverse)
+library(EBImage)
+library(ggthemes)
+library(broom)
+library(collections)
+library(cowplot)
+library(pander)
+library(multcomp)
+library(ggprism)
+library(cowplot)
+```
+
+```{r pull_results, include=F}
+condition_lookup <- readRDS(file = "condition_lookup.rds")
+colnames(condition_lookup) <- c("condition", "filename")
+condition_lookup <- data.frame(condition_lookup)
+
+
+data <- list()
+for (r in 1:nrow(condition_lookup)) {
+  # load recording
+  data[[r]] <- readRDS(file = paste(condition_lookup$filename[r], ".rds", sep=""))
+}
+
+data_actin <- data
+data_mito <- data
+
+plot_section_line <- function(line_coordinates, x_n, y_n, rawimage) {
+    line <- data.frame(t(line_coordinates))
+    colnames(line) <- c("x", "y")
+    line <- line %>% mutate(distance = sqrt(((x-x_n)^2) + ((y-y_n)^2))) %>% arrange(distance) 
+    distance_min <- min(line$distance)
+    distance_max <- max(line$distance)
+    line <- line %>% mutate(distance_norm = (distance-distance_min)/(distance_max - distance_min))
+    mitovalues <- matrix(0, nrow(line), 1)
+    for (i in 1:nrow(line)) {
+      mitovalues[i,] <- imageData(rawimage)[line$x[i], line$y[i],2]
+    }
+    line <- line %>% mutate(mito_section_values = mitovalues)
+    return(line)
+    
+  }
+
+
+
+for (r in 1:length(data)) {
+      rawimage <- data[[r]][["images"]][["rawimage"]]
+  for (s in 1:3){
+    section <- paste("s", s, sep="")
+    nucleus_x <- data[[r]][["sections"]][[section]][["x"]][1]
+    nucleus_y <- data[[r]][["sections"]][[section]][["y"]][1]
+    line_coordinates <- matrix(NA, 2, length(data[[r]][["sections"]][[section]][["x"]]))
+    line_coordinates[1,] <- data[[r]][["sections"]][[section]][["x"]]
+    line_coordinates[2,] <- data[[r]][["sections"]][[section]][["y"]]
+    
+    line <- plot_section_line(line_coordinates, nucleus_x, nucleus_y, rawimage)
+    
+    data_mito[[r]][["sections"]][[section]][["distance"]] <- line$distance
+    data_mito[[r]][["sections"]][[section]][["distance_norm"]] <- line$distance_norm
+    data_mito[[r]][["sections"]][[section]][["mito_section_values"]] <- line$mito_section_values
+    
+  }
+}
+
+
+rm(list=setdiff(ls(), c("condition_lookup", "data_actin", "data_mito")))
+```
+
+## Introduction
+
+We analyzed the distribution of mitochondria in the soma of neurons. We used dissociated neuronal cultures that were treated under different conditions prior to fixation, staining and imaging.
+
+### The images
+
+The cultures contained a natural mix of hippocampal cell types. Neurons were chosen for imaging based on general cell morphology. Here is an overview of all imaged cells.
+
+
+```{r show_thumbnails, echo = F, message = F, results='hide',fig.keep='all', fig.cap="Thumbnails of all analyzed images", fig.width=10, fig.height=6}
+
+plotlist <- list()
+for (r in 1:length(data_mito)){
+  plotlist[[r]] <- data_mito[[r]][["images"]][["rawimage"]]
+}
+plots_per_row <- 5
+n_row <- length(data_mito) %/% plots_per_row
+plots_left <- length(data_mito) %% plots_per_row
+if (plots_left > 0) {n_row <- n_row +1}
+par(mfrow=c(n_row, plots_per_row), mar=c(0, 0, 0, 0), pty = "s")
+sapply(seq_along(plotlist), function(x){
+  plot.new()
+  rasterImage(plotlist[[x]], xleft = 0, xright = 1,
+              ytop = 0, ybottom = 1, interpolate = FALSE)
+})
+par(mfrow=c(1,1), mar=c(0, 0, 0, 0), pty = "m")
+
+rm(list=setdiff(ls(), c("condition_lookup", "data_actin", "data_mito")))
+```
+
+
+
+The analyzed images contained three color channels: The cells were stained with Mito-Tracker Green to capture mitochondria locations in the green channel, with Phallodin-Red to capture actin cytoskeleton in the red channel, and (some of the samples) with DAPI to capture DNA / nucleus location in the blue channel.
+<br>
+
+
+```{r show_original_image, echo = F, message = F, results='hide',fig.keep='all', fig.width=10, fig.height=10, fig.cap="Exemplary image, separated into color channels and merge"}
+which_image = 2
+first_image <- data_mito[[which_image]][["images"]][["rawimage"]]
+
+plotlist <- list()
+plotlist[[1]] <- rgbImage(red = channel(first_image,"r"))
+plotlist[[2]] <- rgbImage(green = channel(first_image,"g"))
+plotlist[[3]] <- rgbImage(blue = channel(first_image,"b"))
+plotlist[[4]] <- first_image
+par(mfrow=c(2, 2), mar=c(0, 0, 0, 0))
+sapply(seq_along(plotlist), function(x){
+  plot.new()
+  rasterImage(plotlist[[x]], xleft = 0, xright = 1,
+              ytop = 0, ybottom = 1, interpolate = FALSE)
+})
+
+rm(list=setdiff(ls(), c("condition_lookup", "data_actin", "data_mito", "which_image")))
+```
+
+
+
+### Sample sizes
+
+The number of analyzed images is currently `r nrow(condition_lookup)` and is divided into different experimental conditions as follows:
+```{r sample_size, echo = F}
+sample_sizes <- condition_lookup %>% group_by(condition)  %>% summarize(n = n())
+#knitr::kable(sample_sizes)
+pander(sample_sizes)
+```
+
+## Analysis steps
+
+A user blinded to the experimental condition marked a starting point at the nuclear envelope and an endpoint at the somatic cell membrane. We then analyzed the fluorescence intensity distribution along the connecting line as a marker for the distribution of mitochondria.
+
+### Intensity profiles
+
+In the original paper with this method @cangkramaProtumorigenicMDia2MIRO1Axis2022, the authors normalized fluorescence intensities on the maximum intensity pixel of the given image. In my opinion, this is not the best solution, as there may be differences in the absolute fluorescence emission that stem from controllable sources (different fluorescence excitation intensity, different reaction times during staining) or uncontrollable sources (fluorophores not as efficient anymore due to light exposure during previous sample preparation, maybe even different fluorophore binding efficiency in different treatment conditions, imaging artefacts with unspecifically bound or unwashed fluorophores) that effect single pixels. I therefore normalized the fluorescence intensity values to the average of the 3 highest values of each cell's profiles - which is a method not as vulnerable to the described error sources.
+
+### Normalization 
+
+Originally @cangkramaProtumorigenicMDia2MIRO1Axis2022, one line was drawn per cell at the position of maximum soma extension from the nucleus. In neurons the overall somatic area outside of the nucleus is much less than in Cangkrama et al.'s cell type and neurons differ in shape from an even, round shape. We thus drew three different sections through the soma. The first in the direction of maximum soma extension (just as the original paper), the other two about 45 degrees clockwise and 45 degrees counterclockwise to the first line.
+
+```{r normalize_intensity, echo = F}
+
+normalize_intensity <- function(data) {
+for (r in 1:length(data)) {
+  line1 <- data[[r]][["sections"]][["s1"]]
+  line2 <- data[[r]][["sections"]][["s2"]]
+  line3 <- data[[r]][["sections"]][["s3"]]
+  int_values <- rbind(line1, line2, line3)
+  normvalue_max <- mean(sort(int_values$mito_section_values, decreasing = T)[1:3])
+  normvalue_min <- mean(sort(int_values$mito_section_values, decreasing = F)[1:3])
+  data[[r]][["sections"]][["s1"]] <- line1 %>% mutate(mito_values_norm = (mito_section_values-normvalue_min) / (normvalue_max - normvalue_min))
+  data[[r]][["sections"]][["s2"]] <- line2 %>% mutate(mito_values_norm = (mito_section_values-normvalue_min) / (normvalue_max - normvalue_min))
+  data[[r]][["sections"]][["s3"]] <- line3 %>% mutate(mito_values_norm = (mito_section_values-normvalue_min) / (normvalue_max - normvalue_min))
+}
+  return(data)
+}
+
+data_mito <- normalize_intensity(data_mito)
+data_actin <- normalize_intensity(data_actin)
+
+rm(list=setdiff(ls(), c("condition_lookup", "data_actin", "data_mito", "which_image", "sample_sizes")))
+```
+
+```{r prepare_results, echo = F}
+
+prepare_results <- function(data) {
+col_condition <- data.frame()
+col_rec <- data.frame()
+col_line <- data.frame()
+col_dist_norm <- data.frame()
+col_int_norm <- data.frame()
+col_poly <- data.frame()
+
+for (r in 1:length(data)) {
+  condition <- data[[r]][["condition"]]
+  sample_size <- sample_sizes$n[str_which(sample_sizes$condition, condition)]
+  condition_name <- paste(condition, " (n=", sample_size, ")", sep="")
+  
+  col_dist_norm <- rbind(col_dist_norm, matrix(data[[r]][["sections"]][["s1"]][["distance_norm"]]))
+  col_int_norm <- rbind(col_int_norm, matrix(data[[r]][["sections"]][["s1"]][["mito_values_norm"]]))
+  col_line <- rbind(col_line, matrix("line1", length(data[[r]][["sections"]][["s1"]][["distance_norm"]])))
+  col_rec <- rbind(col_rec, matrix(data[[r]][["name"]], length(data[[r]][["sections"]][["s1"]][["distance_norm"]])))
+  col_condition <- rbind(col_condition, matrix(condition_name, length(data[[r]][["sections"]][["s1"]][["distance_norm"]])))
+  model_poly <- lm(data[[r]][["sections"]][["s1"]][["mito_values_norm"]] ~ poly(data[[r]][["sections"]][["s1"]][["distance_norm"]],3, raw = T))
+  col_poly <- rbind(col_poly, cbind(matrix(model_poly$coefficients[1], length(data[[r]][["sections"]][["s1"]][["distance_norm"]])), matrix(model_poly$coefficients[2], length(data[[r]][["sections"]][["s1"]][["distance_norm"]])),matrix(model_poly$coefficients[3], length(data[[r]][["sections"]][["s1"]][["distance_norm"]])),matrix(model_poly$coefficients[4], length(data[[r]][["sections"]][["s1"]][["distance_norm"]]))))
+  
+  col_dist_norm <- rbind(col_dist_norm, matrix(data[[r]][["sections"]][["s2"]][["distance_norm"]]))
+  col_int_norm <- rbind(col_int_norm, matrix(data[[r]][["sections"]][["s2"]][["mito_values_norm"]]))
+  col_line <- rbind(col_line, matrix("line2", length(data[[r]][["sections"]][["s2"]][["distance_norm"]])))
+  col_rec <- rbind(col_rec, matrix(data[[r]][["name"]], length(data[[r]][["sections"]][["s2"]][["distance_norm"]])))
+  col_condition <- rbind(col_condition, matrix(condition_name, length(data[[r]][["sections"]][["s2"]][["distance_norm"]])))
+  model_poly <- lm(data[[r]][["sections"]][["s2"]][["mito_values_norm"]] ~ poly(data[[r]][["sections"]][["s2"]][["distance_norm"]],3, raw = T))
+  col_poly <- rbind(col_poly, cbind(matrix(model_poly$coefficients[1], length(data[[r]][["sections"]][["s2"]][["distance_norm"]])), matrix(model_poly$coefficients[2], length(data[[r]][["sections"]][["s2"]][["distance_norm"]])),matrix(model_poly$coefficients[3], length(data[[r]][["sections"]][["s2"]][["distance_norm"]])),matrix(model_poly$coefficients[4], length(data[[r]][["sections"]][["s2"]][["distance_norm"]]))))
+  
+  col_dist_norm <- rbind(col_dist_norm, matrix(data[[r]][["sections"]][["s3"]][["distance_norm"]]))
+  col_int_norm <- rbind(col_int_norm, matrix(data[[r]][["sections"]][["s3"]][["mito_values_norm"]]))
+  col_line <- rbind(col_line, matrix("line3", length(data[[r]][["sections"]][["s3"]][["distance_norm"]])))
+  col_rec <- rbind(col_rec, matrix(data[[r]][["name"]], length(data[[r]][["sections"]][["s3"]][["distance_norm"]])))
+  col_condition <- rbind(col_condition, matrix(condition_name, length(data[[r]][["sections"]][["s3"]][["distance_norm"]])))
+    model_poly <- lm(data[[r]][["sections"]][["s3"]][["mito_values_norm"]] ~ poly(data[[r]][["sections"]][["s3"]][["distance_norm"]],3, raw = T))
+  col_poly <- rbind(col_poly, cbind(matrix(model_poly$coefficients[1], length(data[[r]][["sections"]][["s3"]][["distance_norm"]])), matrix(model_poly$coefficients[2], length(data[[r]][["sections"]][["s3"]][["distance_norm"]])),matrix(model_poly$coefficients[3], length(data[[r]][["sections"]][["s3"]][["distance_norm"]])),matrix(model_poly$coefficients[4], length(data[[r]][["sections"]][["s3"]][["distance_norm"]]))))
+}
+results <- data.frame(recording = col_rec, condition = col_condition, line = col_line, distance_norm = col_dist_norm, intensity_norm = col_int_norm, poly_int = col_poly[,1], poly1 = col_poly[,2], poly2 = col_poly[,3], poly3 = col_poly[,4])
+colnames(results) <- c("recording", "condition", "line", "distance_norm", "intensity_norm", "poly_int", "poly1", "poly2", "poly3")
+
+results <-  results %>% add_count(condition)
+results_wrap <- results %>% mutate(condition_wrap = str_wrap(results$condition, width = 10))
+
+
+# Define range of curve sections
+edges <- data.frame(start = seq(from = 0, to = 0.9, by = 0.1)) %>% mutate(end = start + 0.1)
+edges[7,1] <- 0.6
+# gather values within each curve section
+results_sect <- results_wrap %>% mutate(section = matrix(0, nrow(results_wrap), 1))
+for (s in 1:nrow(edges)) {
+  results_sect$section[results_sect$distance_norm >= edges[s,1] & results_sect$distance_norm < edges[s,2]] <- s
+}
+results_sect$section[results_sect$distance_norm == 0] <- 1
+results_sect$section[results_sect$distance_norm == 1] <- nrow(edges)
+
+results_sect$section <- factor(results_sect$section)
+results_sect <- results_sect %>% group_by(recording, section) %>% mutate(section_mean=mean(intensity_norm)) %>% ungroup() 
+# maybe exclude curves/sections with too little values?
+
+return_list <- list("results" = results, "results_wrap" = results_wrap, "results_sect" = results_sect)
+return(return_list)
+}
+
+all_results_mito <- prepare_results(data_mito)
+all_results_actin <- prepare_results(data_actin)
+
+
+included_conditions <- unique(all_results_mito$results$condition) 
+
+rm(list=setdiff(ls(), c("condition_lookup", "data_actin", "data_mito", "which_image", "sample_sizes", "all_results_mito", "all_results_actin", "included_conditions")))
+
+```
+
+For comparability with the previous study, I plotted here the results, using the first (maximum length) somatic profiles only. 
+
+```{r plot_line1, echo = F, message = F, results='hide',fig.keep='all', fig.width= 10 , fig.height = 6, fig.cap="Normliazed intensity profiles along first sections through the soma"}
+
+all_results_mito$results %>% filter(line == "line1") %>% ggplot(aes(x = distance_norm, y = intensity_norm, color = condition)) + geom_smooth() + theme_classic(base_size = 15) + theme(legend.position = "right", legend.direction = "vertical") + labs(x = "distance from nucleus", y = "mitochondria density")
+
+```
+
+For the mentioned reasons, it is sensible to use several different sections in neurons to compensate for the uneven neuronal soma shape. Here is an overview of all thus far extracted sections through the soma:
+
+```{r plot_lines_separately, echo = F, message = F, results='hide',fig.keep='all', fig.width= 10 , fig.height = 12, fig.cap="Overview of all normalized intensity profiles along sections through the soma"}
+
+all_results_mito$results_wrap %>% ggplot(aes(x = distance_norm, y = intensity_norm, color = recording)) + geom_line() + facet_grid(rows = vars(condition_wrap), cols = vars(line)) + theme_classic(base_size = 10) + scale_x_continuous(labels = function(x) ifelse(x == 0, "0", x)) + theme(legend.position = "none") + labs(x = "distance from nucleus", y = "mitochondria density")
+
+```
+
+We can see, that some curves consist of very few data points, because the soma is only a thin edge around the nucleus in some regions. Other sections span across wider sections of soma. Overall there is no apparent difference between line 1 (sections across widest area of the soma) and lines 2 and 3 (sections across other parts of the soma).
+ 
+
+```{r plot_all_lines, echo = F, message = F, results='hide', fig.keep='all', fig.width= 10 , fig.height = 6, fig.cap="Normalized intensity profiles along sections through the soma - all three sections averaged"}
+
+all_results_mito$results %>% ggplot(aes(x = distance_norm, y = intensity_norm, color = condition)) + geom_smooth() + theme_classic(base_size = 15) + theme(legend.position = "right", legend.direction = "vertical") + labs(x = "distance from nucleus", y = "mitochondria density")
+
+
+```
+
+When comparing the curves of only the first (longest) sections with the averages of all three sections, we can see that the mitochondria distribution is about the same, but the distribution shape becomes more pronounced with more data, which makes sense. Hence, we'll be using all three sections for the following analysis steps.
+
+### Statistical comparison
+
+To compare the different distributions, we divided them up into 10 sections (0-0.1 distance from the nucleus, 0.1-0.2, 0.2-0.3,...). Within each section, values are averaged and statistically compared through anova with Dunnett's post-hoc corrections (used when comparing multiple treatment conditions to one control).
+I then performed statistical comparison between the different treatment groups and controls for each of the 10 distance sections.
+
+## Current results
+
+
+
+## References
+
+<div id="refs"></div>

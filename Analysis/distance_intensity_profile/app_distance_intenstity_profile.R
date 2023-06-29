@@ -413,8 +413,8 @@ server <- function(input, output, session) {
     rec_name <- substr(input$file1$name, 1, (nchar(input$file1$name)-4))
     # load conditions lookup-table ( if exists), add this file and save
     condition_lookup <<- NULL
-    if (file.exists("../../Results/Mitosections/condition_lookup.rds")){
-      condition_lookup <<- readRDS(file = "../../Results/Mitosections/condition_lookup.rds")
+    if (file.exists("../../Results/mitosections/condition_lookup.rds")){
+      condition_lookup <<- readRDS(file = "../../Results/mitosections/condition_lookup.rds")
       if (any(str_detect(condition_lookup[,2], rec_name))) {
         # if the current filename is already in the list
         condition_lookup[str_which(condition_lookup[,2], rec_name),] <- c(input$dropdown, rec_name)
@@ -424,7 +424,7 @@ server <- function(input, output, session) {
     } else {
       condition_lookup <<- rbind(condition_lookup, c(input$dropdown, rec_name))  
     }
-    saveRDS(condition_lookup, file = "../../Results/Mitosections/condition_lookup.rds")
+    saveRDS(condition_lookup, file = "../../Results/mitosections/condition_lookup.rds")
     # generate thumbnail for saving
     x_mean <- mean(c(x_n1, x_n2, x_n3))
     y_mean <- mean(c(y_n1, y_n2, y_n3))
@@ -433,7 +433,7 @@ server <- function(input, output, session) {
     max_dist <- max(c(max_dist_x, max_dist_y)) *1.5
     thumbnail <- rawimage[max(c(1,x_mean-max_dist)):min(c(512, x_mean+max_dist)), max(c(0, y_mean-max_dist)):min(c(512, y_mean+max_dist)),]
     # gather results for saving
-    save_filename <- paste("../../Results/Mitosections/", rec_name, ".rds", sep="")
+    save_filename <- paste("../../Results/mitosections/", rec_name, ".rds", sep="")
     results <- list()
     results$name <- rec_name
     results$condition <- input$dropdown

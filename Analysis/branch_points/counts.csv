@@ -1,0 +1,24 @@
+slide;region;# mito-neg branch points;# mito-positive branch points;ratio of mito positive branch points;condition
+101;;4;13;0,764705882;control
+102;l;1;6;0,857142857;control
+102;r;1;6;0,857142857;control
+103;l;4;13;0,764705882;control
+103;r;0;3;1;control
+104;r;5;7;0,583333333;Activin 2d
+105;l;4;12;0,75;Activin 2d
+105;r;3;9;0,75;Activin 2d
+106;l;2;12;0,857142857;Activin 2d
+106;r;4;11;0,733333333;Activin 2d
+107;l;1;7;0,875;Activin 7d
+107;r - nicht auswertbar;;;;Activin 7d
+108;;2;11;0,846153846;Activin 7d
+109;l;7;5;0,416666667;Activin 7d
+109;r;3;10;0,769230769;Activin 7d
+110;l;6;4;0,4;Activin 4d
+111;l;5;5;0,5;Activin 4d
+111;r;3;6;0,666666667;Activin 4d
+116;;4;18;0,818181818;Alcohol
+117;l;2;7;0,777777778;Alcohol
+117;r;3;5;0,625;Alcohol
+118;l;11;12;0,52173913;Alcohol
+118;r;6;5;0,454545455;Alcohol
